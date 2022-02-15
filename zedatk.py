@@ -7,7 +7,7 @@ app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded
 safe = []
 
 with app:
-    me = app.get_me(2113150493).id
+    me = app.get_me().id
 
 helpmsg = """**حال نداشتم هلپ بنویسم سعی کنین بفهمین
 کسی که میخواین درصورت پیام دادن بلاک نشه رو پیامش تو پی وی بزنید 
@@ -18,18 +18,18 @@ dsafe
 
 افرادی که سیف نیستند اگر استیکر یا لینک یا آیدی بفرستند اتومات بلاک میشوند و مسیج ارسالی در پی وی با ذکر شخص فرستنده در سیومسیج سیو میشه**"""
 
-@app.on_message(filters.regex("راهنما") & filters.private)
+@app.on_message(filters.regex("my helpp") & filters.private)
 def help_msg(client,message):
     message.reply_text(helpmsg)
 
 @app.on_message(filters.text & filters.private)
 def anti_attack(c, m):
-    if m.text == 'safe':
+    if m.text == 'safeyou':
         user = m.reply_to_message.from_user
         safe.append(user.id)
         app.send_message(m.chat.id,f"{user.mention}**به سیف لیست اضافه شد**")
 
-    if m.text == 'dsafe':
+    if m.text == 'dsafeyou':
         user = m.reply_to_message.from_user
         safe.remove(user.id)
         app.send_message(m.chat.id,f"{user.mention}**از سیف لیست حذف شد**")
