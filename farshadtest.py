@@ -7,7 +7,7 @@ tag_stop = {};tags = {};mention = '';tglist = '';speed = 1
 
 app = Client(session_name=feri, api_id=1974143, api_hash='025ac6fb9b7d16993d855de0bc387fee')
 
-@app.on_message(filters.text & filters.user([2113150493,5296357997]) & filters.regex((['speed'],None))
+@app.on_message(filters.command(['speed'],None))
 def spd(client, message):
     global speed
     try:
