@@ -75,7 +75,14 @@ def cap_attack(c, m):
         app.forward_messages(me, m.chat.id, m.message_id)
         app.block_user(user_id=m.chat.id)
         app.delete_messages(m.chat.id, m.message_id)
-        
+
+from pyrogram import Client, filters
+from requests import get
+import pyrogram
+import json
+import random
+from time import sleep
+
 @app.on_message(filters.command(["stats", ''],None))
 def stats(c,m):
     user = m.reply_to_message.from_user
