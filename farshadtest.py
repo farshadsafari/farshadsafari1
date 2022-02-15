@@ -127,4 +127,9 @@ def heln(c, m):
     if "چقدر کمین" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "/startchaos",)
 
+shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi'
+@app.on_message(filters.regex(shekar))
+def pin_ch(client, message):
+    app.pin_chat_message(message.chat.id,message.message_id)
+
 app.run()
