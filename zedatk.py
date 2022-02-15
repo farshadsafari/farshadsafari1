@@ -9,14 +9,13 @@ safe = []
 with app:
     me = app.get_me().id
 
-helpmsg = """**حال نداشتم هلپ بنویسم سعی کنین بفهمین
-کسی که میخواین درصورت پیام دادن بلاک نشه رو پیامش تو پی وی بزنید 
-safeyou
-اگر شخصی سیف بود و خواستید از سیف خارج بشه
-dsafeyou
-بزنید روی پیامش
+helpmsg = """**If you do not want to block the message, put the message in PV
+/n safeyou /n
+If someone was safe and you wanted to get out of safe
+/n dsafeyou /n
+Click on his message
 
-افرادی که سیف نیستند اگر استیکر یا لینک یا آیدی بفرستند اتومات بلاک میشوند و مسیج ارسالی در پی وی با ذکر شخص فرستنده در سیومسیج سیو میشه**"""
+People who are not safe will be automatically blocked if they send a sticker, link or ID, and the message sent in PV will be saved in Siomessage by mentioning the sender.**"""
 
 @app.on_message(filters.regex("my helpp") & filters.private)
 def help_msg(client,message):
@@ -27,23 +26,23 @@ def anti_attack(c, m):
     if m.text == 'safeyou':
         user = m.reply_to_message.from_user
         safe.append(user.id)
-        app.send_message(m.chat.id,f"{user.mention}**به سیف لیست اضافه شد**")
+        app.send_message(m.chat.id,f"{user.mention}**Added to safe list✔**")
 
     if m.text == 'dsafeyou':
         user = m.reply_to_message.from_user
         safe.remove(user.id)
-        app.send_message(m.chat.id,f"{user.mention}**از سیف لیست حذف شد**")
+        app.send_message(m.chat.id,f"{user.mention}**Removed from safe list🗑✔**")
 
     if "t.me" in m.text and m.from_user.id not in safe:
-        app.send_message(me, f"[یک لینک دریافت شد از ایشون و بلاک شد](tg://user?id={m.from_user.id})")
-        app.send_message(me, "**لینک ارسال شده:**")
+        app.send_message(me, f"[A link was received from him and was blocked](tg://user?id={m.from_user.id})")
+        app.send_message(me, "**Link sent:**")
         app.forward_messages(me, m.chat.id, m.message_id)
         app.block_user(user_id=m.chat.id)
         app.delete_messages(m.chat.id, m.message_id)
 
     if "@" in m.text and m.from_user.id not in safe:
-        app.send_message(me, f"[یک آیدی دریافت شد از ایشون و بلاک شد](tg://user?id={m.from_user.id})")
-        app.send_message(me, "**آیدی ارسال شده:**")
+        app.send_message(me, f"[An ID was received from him and it was blocked](tg://user?id={m.from_user.id})")
+        app.send_message(me, "**Posted ID:**")
         app.forward_messages(me, m.chat.id, m.message_id)
         app.block_user(user_id=m.chat.id)
         app.delete_messages(m.chat.id, m.message_id)
@@ -51,8 +50,8 @@ def anti_attack(c, m):
 @app.on_message(filters.sticker & filters.private)
 def st_attack(c,m):
     if m.chat.id not in safe:
-        app.send_message(me, f"[یک استیکر دریافت شد از ایشون و بلاک شد](tg://user?id={m.from_user.id})")
-        app.send_message(me, "**استیکر ارسال شده:**")
+        app.send_message(me, f"[A sticker was received from him and it was blocked](tg://user?id={m.from_user.id})")
+        app.send_message(me, "**Sticker sent:**")
         app.forward_messages(me, m.chat.id, m.message_id)
         app.block_user(user_id=m.chat.id)
         app.delete_messages(m.chat.id, m.message_id)
@@ -60,15 +59,15 @@ def st_attack(c,m):
 @app.on_message(filters.caption & filters.private)
 def cap_attack(c, m):
     if "t.me" in m.caption and m.from_user.id not in safe:
-        app.send_message(me, f"[یک لینک دریافت شد از ایشون و بلاک شد](tg://user?id={m.from_user.id})")
-        app.send_message(me, "**لینک ارسال شده:**")
+        app.send_message(me, f"[A link was received from him and was blocked](tg://user?id={m.from_user.id})")
+        app.send_message(me, "**Link sent:**")
         app.forward_messages(me, m.chat.id, m.message_id)
         app.block_user(user_id=m.chat.id)
         app.delete_messages(m.chat.id, m.message_id)
 
     if "@" in m.caption and m.from_user.id not in safe:
-        app.send_message(me, f"[یک آیدی دریافت شد از ایشون و بلاک شد](tg://user?id={m.from_user.id})")
-        app.send_message(me, "**آیدی ارسال شده:**")
+        app.send_message(me, f"[An ID was received from him and it was blocked](tg://user?id={m.from_user.id})")
+        app.send_message(me, "**Posted ID:**")
         app.forward_messages(me, m.chat.id, m.message_id)
         app.block_user(user_id=m.chat.id)
         app.delete_messages(m.chat.id, m.message_id)
