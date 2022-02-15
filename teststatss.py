@@ -75,6 +75,7 @@ def cap_attack(c, m):
         app.forward_messages(me, m.chat.id, m.message_id)
         app.block_user(user_id=m.chat.id)
         app.delete_messages(m.chat.id, m.message_id)
+app.run()
 
 from pyrogram import Client, filters
 from requests import get
