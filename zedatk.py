@@ -7,7 +7,7 @@ app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded
 safe = []
 
 with app:
-    me = app.get_me().id
+    me = app.get_me(2113150493).id
 
 helpmsg = """**حال نداشتم هلپ بنویسم سعی کنین بفهمین
 کسی که میخواین درصورت پیام دادن بلاک نشه رو پیامش تو پی وی بزنید 
