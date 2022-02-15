@@ -1,1 +1,1 @@
-worker: python farshadtest.py
+worker: python zedatk.py
