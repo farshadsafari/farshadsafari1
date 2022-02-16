@@ -1243,5 +1243,5 @@ async def main():
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 client.start()
-client.run_until_disconnected() .
-app.run()
+client.run_until_disconnected()
+
