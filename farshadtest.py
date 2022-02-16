@@ -128,7 +128,7 @@ def heln(c, m):
         app.send_message(m.chat.id, "delall",reply_to_message_id=m.message_id)         
      
     if "مدت زمان بازی" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "**/Startchaos"**,)
+        app.send_message(m.chat.id, "**/Startchaos**",)
     
 
 app.run()
