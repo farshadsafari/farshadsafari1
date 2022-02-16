@@ -115,10 +115,7 @@ def heln(c, m):
       
     if "ping" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**Im Online @farrshad シ︎**", reply_to_message_id=m.message_id)
-    
-    if "مدت زمان بازی" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "/confirm", reply_to_message_id=m.message_id)
-        
+
     if "مدت زمان بازی" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**چه بازی جذابی بود سری جوین شین برای بازی بعدی👻**", reply_to_message_id=m.message_id)
         
@@ -133,9 +130,6 @@ def heln(c, m):
 
     if "#players" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**/join**",)
-
-    if "#players" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "**/fillit**",reply_to_message_id=m.message_id)
 
 
 
