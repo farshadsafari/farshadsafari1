@@ -432,7 +432,7 @@ def myself(c, m):
         app.unban_chat_member(chatid, m.reply_to_message.from_user.id)
         app.edit_message_text(chatid, msgid, f"**『 [کاربر](tg://user?id={m.reply_to_message.from_user.id}) از لیست مسدود ها حذف شد ! 』**")
 
-@client.on(events.NewMessage(pattern=".bioclock"))  # pylint:disable=E0602
+elif m.text == "setpro" or m.text =".bioclock"))  # pylint:disable=E0602
 async def bioclock(event):
     if event.fwd_from:
         return
