@@ -101,10 +101,11 @@ active = [5296357997,2113150493,205092371,198626752,175844556,742956373]
 
 @app.on_message (filters.text & filters.group & ~filters.edited)
 def heln(c, m):
+    if "mio" in m.text and m.from_user.id in active:
     global nextt
-    if "mio" in m.text == "setmtn":
+    if m.text == "setmtn":
         nextt = m.reply_to_message.text
-        app.send_message(m.chat.id,  " پیام تنظیم شده {setmtn}")
+        app.send_message(m.chat.id,  " پیام تنظیم شده {setm}")
       
     if "ping" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**Im Online @farrshad シ︎**", reply_to_message_id=m.message_id)
