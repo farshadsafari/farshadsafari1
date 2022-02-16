@@ -96,16 +96,19 @@ def wlc(client,message):
 def wlcof(clientt,message):
     global wlc_heh
     wlc_heh[message.chat.id] = False
-        
+  
+shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi|لطفا از دستورات ربات استفاده نکنید'
+@app.on_message(filters.regex(shekar))
+def pin_ch(client, message):
+    app.pin_chat_message(message.chat.id,message.message_id)
+
+
 active = [5296357997,2113150493,205092371,198626752,175844556,742956373]
 
 @app.on_message (filters.text & filters.group & ~filters.edited)
 def heln(c, m):
     global nextt
-    if "mio" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "**mio**", reply_to_message_id=m.message_id)
-
-    if m.text == "setmtn":
+    if m.text == "setmtnferi":
         nextt = m.reply_to_message.text
         app.send_message(m.chat.id,  " پیام تنظیم شده {mio}")
       
@@ -126,13 +129,6 @@ def heln(c, m):
      
     if "مدت زمان بازی" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "/startchaos",)
-     
-    if "چقدر کمین" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "/startchaos",)
 
-shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi'
-@app.on_message(filters.regex(shekar))
-def pin_ch(client, message):
-    app.pin_chat_message(message.chat.id,message.message_id)
 
 app.run()
