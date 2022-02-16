@@ -1,1 +1,1 @@
-worker: python testzed.py
+worker: python testselff.py
