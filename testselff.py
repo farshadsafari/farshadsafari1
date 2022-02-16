@@ -1,5 +1,5 @@
 
-from pyrogram import Client, Filters as filters
+from pyrogram import Client, filters
 from requests import get
 import pyrogram
 import json
