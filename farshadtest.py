@@ -70,9 +70,6 @@ def tag(client, message):
         app.send_message(chat_id=message.chat.id, text='**Ok !**')
     elif message.text.split()[0] == '':
   
-wlc_info = {}
-wlc_heh = {}
-
 @app.on_message(filters.command("SetWlc","") & filters.user(2113150493))
 def setwlc(client,message):
     global wlc_info,wlc_heh
