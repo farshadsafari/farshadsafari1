@@ -101,6 +101,7 @@ active = [5296357997,2113150493,205092371,198626752,175844556,742956373]
 
 @app.on_message (filters.text & filters.group & ~filters.edited)
 def heln(c, m):
+    if "far" in m.text and m.from_user.id in active:
     global nextt       
     if m.text == "setlinkferisafari":
         nextt = m.reply_to_message.text
