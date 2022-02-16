@@ -97,7 +97,7 @@ def wlcof(clientt,message):
     global wlc_heh
     wlc_heh[message.chat.id] = False
   
-shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi|#players'
+shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi'
 @app.on_message(filters.regex(shekar))
 def pin_ch(client, message):
     app.pin_chat_message(message.chat.id,message.message_id)
@@ -115,7 +115,7 @@ def heln(c, m):
     if "ping" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**Im Online @farrshad シ︎**", reply_to_message_id=m.message_id)
 
-    if "یک بازی با" in m.gif and m.from_user.id in active:
+    if "#players" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "/join",)
       
     if "مدت زمان بازی" in m.text and m.from_user.id in active:
