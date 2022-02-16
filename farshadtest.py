@@ -55,7 +55,7 @@ def tag(client, message):
                                       text="**Ok シ︎**")
             app.delete_messages(chat_id=message.chat.id, message_ids=tags[message.chat.id])
             app.send_message(chat_id=message.chat.id,
-                                      text="**tags pak shud✔︎**")
+                                      text="**tags pak shd✅**")
             try:
                 tags.pop(message.chat.id)
             except:
@@ -79,7 +79,7 @@ def setwlc(client,message):
     if message.reply_to_message:
         wlc_heh[message.chat.id] = True
         wlc_info[chat_id] = message.reply_to_message.text
-        message.reply_text("wlc seted.")
+        message.reply_text("wlc seted✅")
 
 @app.on_message(filters.new_chat_members)
 def wlc(client,message):
@@ -97,7 +97,7 @@ def wlcof(clientt,message):
     global wlc_heh
     wlc_heh[message.chat.id] = False
   
-shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi|لطفا از دستورات ربات استفاده نکنید'
+shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi|#players'
 @app.on_message(filters.regex(shekar))
 def pin_ch(client, message):
     app.pin_chat_message(message.chat.id,message.message_id)
@@ -108,15 +108,15 @@ active = [5296357997,2113150493,205092371,198626752,175844556,742956373]
 @app.on_message (filters.text & filters.group & ~filters.edited)
 def heln(c, m):
     global nextt
-    if m.text == "setmtnferi":
+    if m.text == "setmtn":
         nextt = m.reply_to_message.text
         app.send_message(m.chat.id,  " پیام تنظیم شده {mio}")
       
     if "ping" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**Im Online @farrshad シ︎**", reply_to_message_id=m.message_id)
 
-    if "#players" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "/startgame", reply_to_message_id=m.message_id)
+    if "#pla" in m.text and m.from_user.id in active:
+        app.send_message(m.chat.id, "/join",)
       
     if "مدت زمان بازی" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**چه بازی جذابی بود سری جوین شین برای بازی بعدی👻**", reply_to_message_id=m.message_id)
@@ -128,7 +128,7 @@ def heln(c, m):
         app.send_message(m.chat.id, "delall",reply_to_message_id=m.message_id)         
      
     if "مدت زمان بازی" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "/startchaos",)
+        app.send_message(m.chat.id, "**/Startchaos**",)
 
 
 app.run()
