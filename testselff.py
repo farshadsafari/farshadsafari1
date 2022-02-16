@@ -1,528 +1,1247 @@
 
-from pyrogram import Client, filters
-from requests import get
-import pyrogram
-import json
+from telethon.sync import TelegramClient
+from telethon.tl.types import InputPeerUser
+from telethon.errors.rpcerrorlist import PeerFloodError
+from telethon.tl.functions.messages import GetDialogsRequest
+from telethon.tl.types import InputPeerEmpty
+from telethon.tl.functions.messages import GetHistoryRequest
+from telethon import TelegramClient, events
+from telethon.errors import SessionPasswordNeededError
+
+import random
 from time import sleep
 
-pmtags = []
 
-feri = 'BAAK-xvePWLi5TaQwYKSHX249UsL1ptjmQke25WiSk5SXJr18ANYsNxQ38ZndswDUovazfrgjmjHpvEmIrqdpmx2xjqU-sMMYs4LJ1Rl2Tb4Fwb8I62v_lPzjjSqTvCulshrMxkQQmhfccGMks-eyqGtWMWsgE9tL4GhitgIGdXtcVwdUZz9oEcy-u8CE2cYcrnZCVtmHOmvGD_bh8P1t8atYVstIKbo7B69FbFsTFRQYCXyiNa95mDcroLCAHOAS-wsUPiwMMM89VAI-cGwNBAa3uvA4iHzrd9F6Tp6xnCd8IYqE2XjKZNaF2VOvBpcm5PgbI_OQ7sAaf_tJjJ9uWWUAAAAATuwAm0A'
-app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
+import redis #sudo apt-get install redis / pip install redis
+import asyncio #pip install redis
 
-men = True
+redis = redis.Redis(host='localhost', port=6379, db=0)
 
-edc = []
-edc2 = []
-edc3 = []
-edc4 = []
-edc5 = []
+feri = 'BACx5OIph6_9dsghZo87y5Vl3juIQ5mTWLg0icvI2VaAU5a-Wv8U_fD7XfLEzDRQNDhLHmfAPQRPbtuwlwVEU9vK21kNFny_yRj6Br4QXNlo4wBhhrp1u6_1EQvYTJMpkbjxwBCA__c2FYV68h9euis7LLxqWvw-_vC72F_ZyQzk-TTsk9Njzf-c1bxqUP2omVPQSOzwEU1x1gC_vE51g3qQcuURB9EusN95GPIi8enADicMByTdSZjJadVl3vdiq0MAFR0qHReYM7nRJEQfqek1hqb24R7VBufVzsatKIWeuFOAqGUEWNdXVVnhkTo_Xe_j0sqTtUSo9C-uaVeRW8EAAAAAATuwAm0A'
 
-me = [5296357997]
 
-@app.on_message (filters.user(me) & (filters.text | filters.sticker) & (filters.group | filters.private))
-def myself(c, m):
-    chatid = m.chat.id
-    chatti = m.chat.title
-    msgid = m.message_id
-    fname = m.from_user.first_name
-    global banner
-    global group
-    global pmping
-    global men
-    global mtxt
-    global msp
-    global asp
-    global adsp
-    global bn
-    global unbn
-    global edc,edc2,edc3,edc4,edc5
-    global eds,eds2,eds3,eds4,eds5
-    global edp,edp2,edp3,edp4,edp5
-    if m.text == "setpingtext" or m.text == "تنظیم پیام پینگ":
-        pmping = m.reply_to_message.text
-        app.edit_message_text(m.chat.id, msgid, "**『 پیام پینگ تنظیم شد ! 』**")
-    elif m.text == "ping" or m.text == "پینگ":
-        app.edit_message_text(chatid, msgid, f"{pmping}", parse_mode="HTML")
-    elif m.text == "deletepingtext" or m.text == "حذف پیام پینگ":
-        pmping = ""
-        app.edit_message_text(chatid, msgid, "**『 پیام پینگ پاک شد ! 』**")
+app = Client(session_name=feri, api_id=1974143, api_hash='025ac6fb9b7d16993d855de0bc387fee')
 
-    elif m.text == "stats" or m.text == "بازی ها":
-        if m.reply_to_message:
-            target = m.reply_to_message.from_user
-        else:
-            target = m.from_user
-        stats = get(f"https://Tgwerewolf.com/stats/playerstats/?pid={target.id}&json=true").json()
-        if not stats:
-                app.edit_message_text(chatid, msgid, f"[『 تا حالا هیچ بازی ای انجام نداده ! 』](tg://user?id={target.id})")
-                return
-        tedadBazia = stats["gamesPlayed"]
-        tedadBord = stats["won"]["total"]
-        darsadBord = stats["won"]["percent"]
-        tedadBakht = stats["lost"]["total"]
-        darsadBakht = stats["lost"]["percent"]
-        app.edit_message_text(chatid, msgid, f"""**┓ اطلاعات کاربر: [{target.first_name}](tg://user?id={target.id})
-┫ بازی های انجام شده: {tedadBazia}
-┫ برد ها: {tedadBord} (%{darsadBord}) 
-┛ باخت ها: {tedadBakht} (%{darsadBakht})**""")
+try:
+    import socks #pip install socks 
+    proxy = (socks.SOCKS5, '127.0.0.1', 9150) #start tor
+    client = TelegramClient(phone, api_id, api_hash,proxy=proxy)
+    client.connect()
+except:
+    client = TelegramClient(phone, api_id, api_hash)
+    client.connect()
 
-    elif m.text == "kills" or m.text == "قتل ها":
-        if m.reply_to_message:
-            target = m.reply_to_message.from_user
-        else:
-            target = m.from_user
-        s = get(f"http://tgwerewolf.com/stats/PlayerKills/?pid={target.id}&json=true").json()
-        if not s:
-                app.edit_message_text(chatid, msgid, f"[『 تا حالا هیچ بازی ای انجام نداده ! 』](tg://user?id={target.id})")
-                return
-        text = f'''**┓ اطلاعات کاربر [{target.first_name}](tg://user?id={target.id})
-┫ کسانی که شما کشته اید:**
-'''
-        i = 999994
-        for user in s:
-            text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
-            text
-            i += 1
-            text = text.replace('999995','┫ اول:')
-            text = text.replace('999996','┫ دوم:')
-            text = text.replace('999997','┫ سوم:')
-            text = text.replace('999998','┫ چهارم:')
-            text = text.replace('999999','┛ پنجم:')
-        app.edit_message_text(chatid, msgid, text)
 
-    elif m.text == "killedby" or m.text == "قاتل ها":
-        if m.reply_to_message:
-            targ = m.reply_to_message.from_user
-        else:
-            targ = m.from_user
-        t = get(f"http://tgwerewolf.com/stats/PlayerKilledBy/?pid={targ.id}&json=true").json()
-        if not t:
-                app.edit_message_text(chatid, msgid, f"[『 تا حالا هیچ بازی ای انجام نداده ! 』](tg://user?id={targ.id})")
-                return
-        tixt = f'''**┓ اطلاعات کاربر [{targ.first_name}](tg://user?id={targ.id})
-┫ کسانی که شما را کشته اند:**
-'''
-        o = 999994
-        for user in t:
-            tixt += f'**{o+1} {user["name"]} (`{user["times"]}`)**\n'
-            o += 1
-            tixt = tixt.replace('999995','┫ اول:')
-            tixt = tixt.replace('999996','┫ دوم:')
-            tixt = tixt.replace('999997','┫ سوم:')
-            tixt = tixt.replace('999998','┫ چهارم:')
-            tixt = tixt.replace('999999','┛ پنجم:')
-        app.edit_message_text(chatid, msgid, tixt)
+if not client.is_user_authorized(): 
+    try:
+        client.send_code_request(phone) 
+        client.sign_in(code=input('Your Code :')) 
+    except SessionPasswordNeededError:
+        client.sign_in(password=input('your Password :'))
+        
+admin = [5296357997]
+bot_id = [198626752,175844556]
+group_id = int(input("1001745227060"))
 
-    elif m.text == "userid" or m.text == "شناسه کاربر":
-        if m.reply_to_message:
-            tar = m.reply_to_message.from_user
-        else:
-            tar = m.from_user
-        app.edit_message_text(chatid, msgid, f'''**┓** **شناسه کاربر [{tar.first_name}](tg://user?id={tar.id}) پیدا شد**
-**┛ شناسه کاربر:** `{tar.id}`''')
+data_base = {'shkar':0,'ray':'','naghsh':'','ghofli':'','ros':0,'fereshte':0,'karagah':0,'pishgo':0,'negahbani':''}
+me = client.get_me()
+redis.set(me.id,str(data_base))
 
-    if "userid" in m.text:
-      users = m.text.split()[1]
-      ids = app.get_users(users)
-      app.edit_message_text(chatid, msgid, f'''**┓** **شناسه کاربر [{ids.first_name}](tg://user?id={ids.id}) پیدا شد**
-**┛ شناسه کاربر:** `{ids.id}`''')
-    if "شناسه کاربر" in m.text:
-      users = m.text.split()[2]
-      ids = app.get_users(users)
-      app.edit_message_text(chatid, msgid, f'''**┓** **شناسه کاربر [{ids.first_name}](tg://user?id={ids.id}) پیدا شد**
-**┛ شناسه کاربر:** `{ids.id}`''')
+async def main():
+    @client.on(events.NewMessage(pattern=r'/ping'))
+    async def shekar_1(event):
+        if event.chat_id == group_id:
+            if event.sender_id in admin:
+                await event.reply('online')
 
-    if "finduser" in m.text:
-      users = m.text.split()[1]
-      ids = app.get_users(users)
-      app.edit_message_text(chatid, msgid, f"**『 کاربر [{ids.first_name}](tg://user?id={ids.id}) پیدا شد ! 』**")
-    if "پیدا کردن کاربر" in m.text:
-      users = m.text.split()[3]
-      ids = app.get_users(users)
-      app.edit_message_text(chatid, msgid, f"**『 کاربر [{ids.first_name}](tg://user?id={ids.id}) پیدا شد ! 』**")
-
-    if m.text == "groupid" or m.text == "شناسه گروه":
-      app.edit_message_text(chatid, msgid, f'''**┓** **شناسه گروه {chatti} پیدا شد**
-**┛ شناسه گروه:** `{chatid}`''')
-
-    if "stats" in m.text:
-      userss = m.text.split()[1]
-      idss = app.get_users(userss)
-      stats = get(f"https://Tgwerewolf.com/stats/playerstats/?pid={idss.id}&json=true").json()
-      if not stats:
-                app.edit_message_text(chatid, msgid, f"[『 تا حالا هیچ بازی ای انجام نداده ! 』](tg://user?id={idss.id})")
-                return
-      tedadBazia = stats["gamesPlayed"]
-      tedadBord = stats["won"]["total"]
-      darsadBord = stats["won"]["percent"]
-      tedadBakht = stats["lost"]["total"]
-      darsadBakht = stats["lost"]["percent"]
-      app.edit_message_text(chatid, msgid, f"""**┓ اطلاعات کاربر: [{idss.first_name}](tg://user?id={idss.id})
-┫ بازی های انجام شده: {tedadBazia}
-┫ برد ها: {tedadBord} (%{darsadBord}) 
-┛ باخت ها: {tedadBakht} (%{darsadBakht})**""")
-    if "بازی ها" in m.text:
-      userss = m.text.split()[2]
-      idss = app.get_users(userss)
-      stats = get(f"https://Tgwerewolf.com/stats/playerstats/?pid={idss.id}&json=true").json()
-      if not stats:
-                app.edit_message_text(chatid, msgid, f"[『 تا حالا هیچ بازی ای انجام نداده ! 』](tg://user?id={idss.id})")
-                return
-      tedadBazia = stats["gamesPlayed"]
-      tedadBord = stats["won"]["total"]
-      darsadBord = stats["won"]["percent"]
-      tedadBakht = stats["lost"]["total"]
-      darsadBakht = stats["lost"]["percent"]
-      app.edit_message_text(chatid, msgid, f"""**┓ اطلاعات کاربر: [{idss.first_name}](tg://user?id={idss.id})
-┫ بازی های انجام شده: {tedadBazia}
-┫ برد ها: {tedadBord} (%{darsadBord}) 
-┛ باخت ها: {tedadBakht} (%{darsadBakht})**""")
-
-    elif "قتل ها" in m.text:
-      usersss = m.text.split()[2]
-      idsss = app.get_users(usersss)
-      s = get(f"http://tgwerewolf.com/stats/PlayerKills/?pid={idsss.id}&json=true").json()
-      if not s:
-                app.edit_message_text(chatid, msgid, f"[『 تا حالا هیچ بازی ای انجام نداده ! 』](tg://user?id={idsss.id})")
-                return
-      text = f'''**┓ اطلاعات کاربر [{idsss.first_name}](tg://user?id={idsss.id})
-┫ کسانی که شما کشته اید:**
-'''
-      i = 999994
-      for user in s:
-            text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
-            text
-            i += 1
-            text = text.replace('999995','┫ اول:')
-            text = text.replace('999996','┫ دوم:')
-            text = text.replace('999997','┫ سوم:')
-            text = text.replace('999998','┫ چهارم:')
-            text = text.replace('999999','┛ پنجم:')
-      app.edit_message_text(chatid, msgid, text)
-    elif "kills" in m.text:
-      usersss = m.text.split()[1]
-      idsss = app.get_users(usersss)
-      s = get(f"http://tgwerewolf.com/stats/PlayerKills/?pid={idsss.id}&json=true").json()
-      if not s:
-                app.edit_message_text(chatid, msgid, f"[『 تا حالا هیچ بازی ای انجام نداده ! 』](tg://user?id={idsss.id})")
-                return
-      text = f'''**┓ اطلاعات کاربر [{idsss.first_name}](tg://user?id={idsss.id})
-┫ کسانی که شما کشته اید:**
-'''
-      i = 999994
-      for user in s:
-            text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
-            text
-            i += 1
-            text = text.replace('999995','┫ اول:')
-            text = text.replace('999996','┫ دوم:')
-            text = text.replace('999997','┫ سوم:')
-            text = text.replace('999998','┫ چهارم:')
-            text = text.replace('999999','┛ پنجم:')
-      app.edit_message_text(chatid, msgid, text)
-
-    elif "killedby" in m.text:
-      userssss = m.text.split()[1]
-      idssss = app.get_users(userssss)
-      t = get(f"http://tgwerewolf.com/stats/PlayerKilledBy/?pid={idssss.id}&json=true").json()
-      if not t:
-                app.edit_message_text(chatid, msgid, f"[『 تا حالا هیچ بازی ای انجام نداده ! 』](tg://user?id={idssss.id})")
-                return
-      tixt = f'''**┓ اطلاعات کاربر [{idssss.first_name}](tg://user?id={idssss.id})
-┫ کسانی که شما را کشته اند:**
-'''
-      o = 999994
-      for user in t:
-            tixt += f'**{o+1} {user["name"]} (`{user["times"]}`)**\n'
-            o += 1
-            tixt = tixt.replace('999995','┫ اول:')
-            tixt = tixt.replace('999996','┫ دوم:')
-            tixt = tixt.replace('999997','┫ سوم:')
-            tixt = tixt.replace('999998','┫ چهارم:')
-            tixt = tixt.replace('999999','┛ پنجم:')
-      app.edit_message_text(chatid, msgid, tixt)
-    elif "قاتل ها" in m.text:
-      userssss = m.text.split()[2]
-      idssss = app.get_users(userssss)
-      t = get(f"http://tgwerewolf.com/stats/PlayerKilledBy/?pid={idssss.id}&json=true").json()
-      if not t:
-                app.edit_message_text(chatid, msgid, f"[『 تا حالا هیچ بازی ای انجام نداده ! 』](tg://user?id={idssss.id})")
-                return
-      tixt = f'''**┓ اطلاعات کاربر [{idssss.first_name}](tg://user?id={idssss.id})
-┫ کسانی که شما را کشته اند:**
-'''
-      o = 999994
-      for user in t:
-            tixt += f'**{o+1} {user["name"]} (`{user["times"]}`)**\n'
-            o += 1
-            tixt = tixt.replace('999995','┫ اول:')
-            tixt = tixt.replace('999996','┫ دوم:')
-            tixt = tixt.replace('999997','┫ سوم:')
-            tixt = tixt.replace('999998','┫ چهارم:')
-            tixt = tixt.replace('999999','┛ پنجم:')
-      app.edit_message_text(chatid, msgid, tixt)
-
-    if m.text == "setbanner" or m.text == "تنظیم بنر":
-      banner = m.reply_to_message.text
-      app.edit_message_text(m.chat.id, msgid, "**『 بنر تنظیم شد ! 』**")
-    elif m.text == "getbanner" or m.text == "دریافت بنر":
-      app.edit_message_text(m.chat.id, msgid, f"""**┓ آخرین بنر تنظیم شده اینگونه است**
-**┛ بنر:** `{banner}`""")
-    elif "sendbanner" in m.text:
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال تنظیم سرعت ارسال بنر... ! 』**")
-        adsp = m.text.split()[1]
-        app.edit_message_text(m.chat.id, msgid, "**『 سرعت ارسال بنر تنظیم شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال دریافت اطلاعات کاربران... ! 』**")
-        members = [i for i in m.reply_to_message.text.split() if '@' in i and len(i) > 4 and '@' not in i[1:]]
-        app.edit_message_text(m.chat.id, msgid, "**『 اطلاعات مورد نیاز کاربران دریافت شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 شروع ارسال بنر ! 』**")
-        for member in members:
+    @client.on(events.NewMessage(pattern=r'#شکار'))
+    async def shekar_1(event):
+        if event.chat_id == group_id:
             try:
-                app.send_message(member, f"{banner}", parse_mode="HTML")
-                sleep(int(adsp))
-            except pyrogram.errors.exceptions.bad_request_400.UsernameInvalid:
-                app.edit_message_text(m.chat.id, msgid, "**『 با نام کاربری اشتباه برخورد کردم ! 』**")
-            except pyrogram.errors.exceptions.bad_request_400.UsernameNotOccupied:
-                app.edit_message_text(m.chat.id, msgid, "**『 با نام کاربری اشتباه برخورد کردم ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 پایان ارسال بنر ! 』**")
-    elif "ارسال بنر" in m.text:
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال تنظیم سرعت ارسال بنر... ! 』**")
-        adsp = m.text.split()[2]
-        app.edit_message_text(m.chat.id, msgid, "**『 سرعت ارسال بنر تنظیم شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال دریافت اطلاعات کاربران... ! 』**")
-        members = [i for i in m.reply_to_message.text.split() if '@' in i and len(i) > 4 and '@' not in i[1:]]
-        app.edit_message_text(m.chat.id, msgid, "**『 اطلاعات مورد نیاز کاربران دریافت شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 شروع ارسال بنر ! 』**")
-        for member in members:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['shkar'] = event.sender_id
+                redis.set(me.id,str(get_list))
+            except Exception as e:
+                print(e)
+    
+    @client.on(events.NewMessage(pattern=r'#شکارچی'))
+    async def shekar_2(event):
+        if event.chat_id == group_id:
             try:
-                app.send_message(member, f"{banner}", parse_mode="HTML")
-                sleep(int(adsp))
-            except pyrogram.errors.exceptions.bad_request_400.UsernameInvalid:
-                app.edit_message_text(m.chat.id, msgid, "**『 با نام کاربری اشتباه برخورد کردم ! 』**")
-            except pyrogram.errors.exceptions.bad_request_400.UsernameNotOccupied:
-                app.edit_message_text(m.chat.id, msgid, "**『 با نام کاربری اشتباه برخورد کردم ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 پایان ارسال بنر ! 』**")
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['shkar'] = event.sender_id
+                redis.set(me.id,str(get_list))
+            except Exception as e:
+                print(e)
+    
+    @client.on(events.NewMessage(pattern=r'#شکارم'))
+    async def shekar_3(event):
+        if event.chat_id == group_id:
+            try:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['shkar'] = event.sender_id
+                redis.set(me.id,str(get_list))
+            except Exception as e:
+                print(e)
+    
+    @client.on(events.NewMessage(pattern=r'#shekar'))
+    async def shekar_4(event):
+        if event.chat_id == group_id:
+            try:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['shkar'] = event.sender_id
+                redis.set(me.id,str(get_list))
+            except Exception as e:
+                print(e)
+    
+    @client.on(events.NewMessage(pattern=r'تو شکارچی هستی‌'))
+    async def shekar_5(event):
+        if event.sender_id in bot_id:
+            await client.send_message(int(group_id),"#شکار")
+  
+    @client.on(events.NewMessage(pattern=r'بازیکن های زنده:'))
+    async def list_naghsh_user(event):  
+        if event.chat_id == group_id:
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            get_list['naghsh'] = ''
+            try:
+                ssw = await client.get_entity('me')
+                for i in event.text.split("\n"):
+                    if ': 🙂 زنده' in i:
+                        if not ssw.first_name in i:
+                            if not i == "":
+                                try:
+                                    get_list['naghsh'] += str(i.split('[')[1].split(']')[0])+"\n"
+                                except Exception as e:
+                                    print(e)
+                redis.set(me.id,str(get_list))
+            except Exception as e:
+                print(e)
 
-    elif "addusers" in m.text:
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال تنظیم گروه افزودن کاربران... ! 』**")
-        agp = m.text.split()[1]
-        app.edit_message_text(m.chat.id, msgid, "**『 گروه افزودن کاربران تنظیم شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال تنظیم سرعت افزودن کاربران... ! 』**")
-        asp = m.text.split()[2]
-        app.edit_message_text(m.chat.id, msgid, "**『 سرعت افزودن کاربران تنظیم شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال دریافت اطلاعات کاربران... ! 』**")
-        membersss = [i for i in m.reply_to_message.text.split() if '@' in i and len(i) > 4 and '@' not in i[1:]]
-        app.edit_message_text(m.chat.id, msgid, "**『 اطلاعات مورد نیاز کاربران دریافت شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 شروع افزودن... ! 』**")
-        for memberss in membersss:
+    @client.on(events.NewMessage(pattern=r'یک بازی با حالت'))
+    async def start_ganme(event):
+        if event.chat_id == group_id:
+            if event.sender_id in bot_id:
+                text_url = await client.get_messages(event.chat_id)
+                bot_ids = event.sender_id
+                text_url = str(text_url[0].reply_markup).split("start=")[1].split("'")[0]
+                await client.send_message(bot_ids,"/start "+text_url)
+                await asyncio.sleep(2) 
+                await client.send_message(bot_ids,"/start "+text_url)
+                await asyncio.sleep(2) 
+                await client.send_message(bot_ids,"/start "+text_url)
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['shkar'] = 0
+                get_list['ros'] = 0
+                get_list['karagah'] = 0
+                get_list['fereshte'] = 0
+                get_list['pishgo'] = 0
+                get_list['negahbani'] = ''
+                get_list['naghsh'] = ''
+                get_list['ray'] = ''
+                redis.set(me.id,str(get_list))
+    
+    @client.on(events.NewMessage(pattern=r'تو یه روستایی ساده ای🙂'))
+    async def rose(event):
+        if event.sender_id in bot_id:
+            await asyncio.sleep(4)
+            await client.send_message(int(group_id),"روستایی\n\n\nسادم نیاب افکم")
+            await client.send_message(int(group_id),"/sn ros")
+    
+    @client.on(events.NewMessage(pattern=r'دیشب تاریک بود و فاحشه اومد یه حالی بهت داد و رفت!'))
+    async def faheshe_gane(event):
+        if event.sender_id in bot_id:
+            await asyncio.sleep(4) 
+            text = ['مرسی فاحشه','بازم سر بهم بزن فاحشه','کجا بودی زودتر میومدی پیشم فاحشه','سیف فاحشم','faheshe omad man','safe fahesham','bos faheshe','فاحشه بیشتر بیا پیشم']
+            text = text[random.randint(0,len(text)-1)]
+            await client.send_message(int(group_id),text)
+    
+    @client.on(events.NewMessage(pattern=r'ای شیطون! میخوای بری خونه کی؟'))
+    async def faheshe(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(4)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
             try:
-                app.add_chat_members(agp, memberss)
-                sleep(int(asp))
-                app.edit_message_text(m.chat.id, msgid, "**『 افزوده شد ! 』**")
-            except pyrogram.errors.exceptions.bad_request_400.UsernameInvalid:
-                app.edit_message_text(m.chat.id, msgid, "**『 با نام کاربری اشتباه برخورد کردم ! 』**")
-            except pyrogram.errors.exceptions.bad_request_400.UsernameNotOccupied:
-                app.edit_message_text(m.chat.id, msgid, "**『 با نام کاربری اشتباه برخورد کردم ! 』**")
-            except pyrogram.errors.exceptions.bad_request_400.PeerFlood:
-                app.edit_message_text(m.chat.id, msgid, "**『 تنظیمات حساب کاربری این کاربر مانع افزودن آن به گروه میشود ! 』**")
-            except pyrogram.errors.exceptions.bad_request_400.BadRequest:
-                app.edit_message_text(m.chat.id, msgid, "**『 برای افزودن این کاربر محدودیتی وجود دارد ! 』**")
-            except pyrogram.errors.exceptions.forbidden_403.Forbidden:
-                app.edit_message_text(m.chat.id, msgid, "**『 برای افزودن این کاربر محدودیتی وجود دارد ! 』**")
-            except pyrogram.errors.exceptions.flood_420.FloodWait:
-                app.edit_message_text(m.chat.id, msgid, "**『 افزودن به دلیل بر خورد با محدودیت تلگرام متوقف شد بعد از هفت دقیقه میتوانم ادامه دهم ! 』**",sleep(440))
-        app.edit_message_text(m.chat.id, msgid, "**『 پایان افزودن ! 』**")
-    elif "افزودن کاربران" in m.text:
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال تنظیم گروه افزودن کاربران... ! 』**")
-        agp = m.text.split()[2]
-        app.edit_message_text(m.chat.id, msgid, "**『 گروه افزودن کاربران تنظیم شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال تنظیم سرعت افزودن کاربران... ! 』**")
-        asp = m.text.split()[3]
-        app.edit_message_text(m.chat.id, msgid, "**『 سرعت افزودن کاربران تنظیم شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال دریافت اطلاعات کاربران... ! 』**")
-        membersss = [i for i in m.reply_to_message.text.split() if '@' in i and len(i) > 4 and '@' not in i[1:]]
-        app.edit_message_text(m.chat.id, msgid, "**『 اطلاعات مورد نیاز کاربران دریافت شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 شروع افزودن... ! 』**")
-        for memberss in membersss:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await client.send_message(int(group_id),"رفتم \n"+ss)
+            await s[0].click(text=ss)
+    
+    @client.on(events.NewMessage(pattern=r'کیو میخوای ببینی؟'))
+    async def pishgo(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(4)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
             try:
-                app.add_chat_members(agp, memberss)
-                sleep(int(asp))
-                app.edit_message_text(m.chat.id, msgid, "**『 افزوده شد ! 』**")
-            except pyrogram.errors.exceptions.bad_request_400.UsernameInvalid:
-                app.edit_message_text(m.chat.id, msgid, "**『 با نام کاربری اشتباه برخورد کردم ! 』**")
-            except pyrogram.errors.exceptions.bad_request_400.UsernameNotOccupied:
-                app.edit_message_text(m.chat.id, msgid, "**『 با تام کاربری اشتباه برخورد کردم ! 』**")
-            except pyrogram.errors.exceptions.bad_request_400.PeerFlood:
-                app.edit_message_text(m.chat.id, msgid, "**『 تنظیمات حساب کاربری این کاربر مانع افزودن آن به گروه میشود ! 』**")
-            except pyrogram.errors.exceptions.bad_request_400.BadRequest:
-                app.edit_message_text(m.chat.id, msgid, "**『 برای افزودن این کاربر محدودیتی وجود دارد ! 』**")
-            except pyrogram.errors.exceptions.forbidden_403.Forbidden:
-                app.edit_message_text(m.chat.id, msgid, "**『 برای افزودن این کاربر محدودیتی وجود دارد ! 』**")
-            except pyrogram.errors.exceptions.flood_420.FloodWait:
-                app.edit_message_text(m.chat.id, msgid, "**『 افزودن به دلیل بر خورد با محدودیت تلگرام متوقف شد بعد از هفت دقیقه میتوانم ادامه دهم ! 』**",sleep(440))
-        app.edit_message_text(m.chat.id, msgid, "**『 پایان افزودن ! 』**")
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text=ss)
 
-    if "tgs" in m.text:
-        msp = m.text.split()[1]
-        app.delete_messages(chatid, m.message_id)
-        try:       
-            men = True
-            chat_members = app.get_chat_members(chatid)
-            for i in chat_members:
-                if men:
-                    if i.user.first_name:
-                        if i.user.id == me:
-                            continue
-                        name = i.user.first_name
-                        userid = i.user.id
-                        title = m.chat.title
-                        mention = f"[{name}](tg://user?id={userid})"
-                        s = app.send_message(chatid, mtxt.format(mention=mention,title=title,userid=userid,name=name))
-                        sleep(int(msp))
-                        pmtags.append(s.message_id)
+    @client.on(events.NewMessage(pattern=r'کیو میخوای بخوری؟'))
+    async def gorg(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(4)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            print(list_naghsh)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text=ss)
+
+    @client.on(events.NewMessage(pattern=r'کیو میخوای شکار کنی؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            get_list['shkar'] = 200
+            redis.set(me.id,str(get_list))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await client.send_message(int(group_id),"میرم شکار {0}".format(ss))
+    
+    @client.on(events.NewMessage(pattern=r'الگوت کی باشه؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text=ss) 
+  
+    @client.on(events.NewMessage(pattern=r'به کی میخوای تیر بزنی؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await client.send_message(int(group_id),"بای بای کن {0}".format(ss))
+            await s[0].click(text=ss) 
+
+    @client.on(events.NewMessage(pattern=r'کیو میخوای عضو انجمنت کنی؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text=ss)
+
+    @client.on(events.NewMessage(pattern=r'میخوای همزاد کی بشی؟ اگه بمیره تو نقششو بر عهده میگیری'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            
+            await s[0].click(text=ss) 
+            
+    @client.on(events.NewMessage(pattern=r'کیو میخوای امشب بکشی؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text=ss) 
+
+    @client.on(events.NewMessage(pattern=r'کیا رو میخوای عاشق همدیگه بکنی؟ نفر اول رو انتخاب کن'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(10)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text=ss)
+
+    @client.on(events.NewMessage(pattern=r'کیا رو میخوای عاشق همدیگه بکنی؟ نفر دوم رو انتخاب کن'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text=ss)
+
+    @client.on(events.NewMessage(pattern=r'نقش کیو میخوای بدزدی؟😈'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text=ss)
+
+    @client.on(events.NewMessage(pattern=r'امشب کی میتونه یه میزبان و شریک خوب توی شرط بندی باشه؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text=ss)
+            
+    @client.on(events.NewMessage(pattern=r'میخوای امشب کی رو منجمد کنی؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text=ss)
+            
+    @client.on(events.NewMessage(pattern=r'میخوای یه خونه دیگه رو هم آغشته کنی یا میخوای با یه جرقه همشون رو بسوزونی؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(6)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            try:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    for i in get_list['naghsh'].split("\n"):
+                        if not shekar.first_name in i:
+                            list_naghsh.append(i)
+                else :
+                    for i in get_list['naghsh'].split("\n"):
+                        list_naghsh.append(i)
+            except Exception as e:
+                print(e)
+            random_id = random.randint(0,len(list_naghsh))
+            s = await client.get_messages(event.chat_id)
+            ss = list_naghsh[random_id]
+            await s[0].click(text='جرقه')
+            await asyncio.sleep(2)
+            await s[0].click(text=ss)
+    
+    @client.on(events.NewMessage(pattern=r'اگه برای اعلام کردن نقشت آماده هستی روی "اعلام کردم" کلیک کن تا بتونی از این به بعد 2 تا رای بدی😁'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            s = await client.get_messages(event.chat_id)
+            await s[0].click(text="اعلام کردن")
+            
+    @client.on(events.NewMessage(pattern=r'دوست داری امشب توی هوا نقره پخش کنی و روستارو از دست گرگ ها نجات بدی؟!'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            s = await client.get_messages(event.chat_id)
+            await s[0].click(text="آره")
+            
+    @client.on(events.NewMessage(pattern=r'میخوای امشب همه رو به خواب ببری؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            s = await client.get_messages(event.chat_id)
+            await s[0].click(text="آره")
+            
+    @client.on(events.NewMessage(pattern=r'این دکمه رو فشار بده ویه سخنرانی در مورد حقوق بشر بکن، یادت باشه وقتی این کار رو بکنی جلوی رای دادن روستا رو میگیری و کسی اعدام نمیشه 😐'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            s = await client.get_messages(event.chat_id)
+            await s[0].click(text="صلح!")
+
+    async def sabtnaghs(text):
+        await asyncio.sleep(10)
+        await client.send_message(int(group_id),text)
+            
+    @client.on(events.NewMessage)
+    async def sabtnaghsha(event):
+        if event.sender_id in bot_id:
+            if 'تو شکارچی هستی‌' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn شکار')
+            elif 'تو  صلح گرا هستی☮️' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn صلح')
+            elif 'تو بچه وحشی هستی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 2
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn وحشی')
+            elif 'تو ناظر هستی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn ناظر')
+            elif 'تو الان آقا گرگه ای!' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 2
+                redis.set(me.id,str(get_list))
+                text = ['روس','بی ازار تر از منم هست مگه','مست','گورکن','گیج','الهه','فرا','رمال']
+                text = text[random.randint(0,len(text)-1)]
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn {0}'.format(text))
+            elif 'الکلی بدبخت!‌' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn مست')
+            elif 'تو گورکن هستی ☠️' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn گورکن')
+            elif 'تو قاتل زنجیره ای هستی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 2
+                redis.set(me.id,str(get_list))
+                text = ['روس','بی ازار تر از منم هست مگه','مست','گورکن','گیج','الهه','فرا','رمال']
+                text = text[random.randint(0,len(text)-1)]
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn {0}'.format(text))
+            elif '‌خائن کثیف!' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 2
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn روس')
+            elif '‌تو رمال هستی 🦅' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn رمال')
+            elif 'تو همزادی!' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 0
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn همزاد')
+            elif 'تو گرگ برفی هستی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 2
+                redis.set(me.id,str(get_list))
+                text = ['روس','بی ازار تر از منم هست مگه','مست','گورکن','گیج','الهه','فرا','رمال']
+                text = text[random.randint(0,len(text)-1)]
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn {0}'.format(text))
+            elif 'تو کدخدا' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn کدخدا')
+            elif 'تو فرشته نگهبانی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                if not get_list['shkar'] == 0:
+                    await client.send_message(get_list['shkar'],'من فرشته ام')
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn روس')
+            elif 'تو تفنگدار هستی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn روس')
+            elif 'تو گرگ نمایی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn گرگنما')
+            elif 'تو یه شیمیدان' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn روس')
+            elif 'تو پیشگو هستی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                if not get_list['shkar'] == 0:
+                    await client.send_message(get_list['shkar'],'من پیشگوام')
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn روس')
+            elif 'تو ریش سفیدی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn ریش')
+            elif 'تو آتش زن هستی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 2
+                redis.set(me.id,str(get_list))
+                text = ['روس','بی ازار تر از منم هست مگه','مست','گورکن','گیج','الهه','فرا','رمال']
+                text = text[random.randint(0,len(text)-1)]
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn {0}'.format(text))
+            elif 'تو فراماسونی ' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn فرا')
+            elif 'تو پسر گیجی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn گیج')
+            elif 'تو یه روستایی ساده ای🙂' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn روس')
+            elif 'تو کاراگاهی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                if not get_list['shkar'] == 0:
+                    await client.send_message(get_list['shkar'],'من کاراگاهم')
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn روس')
+            elif 'تو شاهزاده ای' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn شاهزاده')
+            elif 'تو فرقه گرا  هستی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn روس')
+            elif 'تو کلانتر روستا هستی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn کلانتر')
+            elif 'تو دردسرسازی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn دردسر')
+            elif 'تو فاحشه ای ' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn فاحشه')
+            elif 'تو الهه عشقی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn الهه')
+            elif 'تو توله گرگ' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 2
+                redis.set(me.id,str(get_list))
+                text = ['روس','بی ازار تر از منم هست مگه','مست','گورکن','گیج','الهه','فرا','رمال']
+                text = text[random.randint(0,len(text)-1)]
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn {0}'.format(text))
+            elif 'تو خواب گذار هستی' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn روس')
+            elif 'تو آهنگری' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ros'] = 1
+                redis.set(me.id,str(get_list))
+                await asyncio.sleep(10)
+                await sabtnaghs('/sn روس')
+            elif 'جالبه بدونی' in event.text:
+                if 'نقشش' in event.text:
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    if not get_list['shkar'] == 0:
+                        await client.send_message(int(get_list['shkar']),event.message.message)
+                    else :
+                        messag = event.message.message
+                        print(type(messag))
+                        messag = messag.strip('جالبه بدونی')
+                        messag = messag.strip('نقشش')
+                        await client.send_message(group_id,messag)
+            elif 'تو دیدی که' in event.text:
+                if 'نیست.' in event.text:
+                    messag = event.message.message
+                    print(type(messag))
+                    messag = messag.strip('تو دیدی که')
+                    messag = messag.strip('،')
+                    messag = messag.strip('.')
+                    await client.send_message(group_id,messag)
+            elif 'نتیجه تحقیقات تو نشون میده' in event.text:
+                if 'چیزی نیست جز' in event.text:
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    if not get_list['shkar'] == 0:
+                        await client.send_message(int(get_list['shkar']),event.message.message)
+                    else :
+                        messag = event.message.message
+                        print(type(messag))
+                        messag = messag.strip('نتیجه تحقیقات تو نشون میده')
+                        messag = messag.strip('چیزی نیست جز')
+                        await client.send_message(group_id,messag)
+            elif 'همانطور که به آسمان نگاه میکنید' in event.text:
+                if 'توی روستا نیست' in event.text:
+                    messag = event.message.message
+                    print(type(messag))
+                    messag = messag.strip('همانطور که به آسمان نگاه میکنید متوجه فرم عجیب پرنده ها میشوید. این فقط میتونه به این معنی باشه که ')
+                    await client.send_message(group_id,messag)
+
+    @client.on(events.NewMessage(func=lambda e: e.is_private))
+    async def pv_get(event):
+        if event.text == 'من پیشگوام':
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            get_list['pishgo'] = event.sender_id
+            redis.set(me.id,str(get_list))
+            await event.reply('حله')
+        elif event.text == 'من فرشته ام':
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            get_list['karagah'] = event.sender_id
+            redis.set(me.id,str(get_list))
+            await event.reply('حله')
+        elif event.text == 'من کاراگاهم':
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            get_list['fereshte'] = event.sender_id
+            redis.set(me.id,str(get_list))
+            await event.reply('حله')
+        elif 'جالبه بدونی' in event.text:
+            if 'نقشش فرقه گرا 👤' in event.text:
+                messag = event.message.message
+                messag = messag.strip('جالبه بدونی ')
+                messag = messag.strip(' نقشش فرقه گرا 👤 هستش')
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ray'] == messag
+                redis.set(me.id,str(get_list))
+                await client.send_message(group_id,'/sv {0}'.format(messag))
+        elif 'جالبه بدونی' in event.text:
+            if 'گرگ برفی 🐺☃️' in event.text:
+                messag = event.message.message
+                messag = messag.strip('جالبه بدونی ')
+                messag = messag.strip(' نقشش  گرگ برفی 🐺☃️  هستش')
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ray'] == messag
+                redis.set(me.id,str(get_list))
+                await client.send_message(group_id,'/sv {0}'.format(messag))
+        elif 'جالبه بدونی' in event.text:
+            if 'نقشش جادوگر 🔮' in event.text:
+                messag = event.message.message
+                messag = messag.strip('جالبه بدونی ')
+                messag = messag.strip(' نقشش جادوگر 🔮 هستش')
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ray'] == messag
+                redis.set(me.id,str(get_list))
+                await client.send_message(group_id,'/sv {0}'.format(messag))
+        elif 'جالبه بدونی' in event.text:
+            if 'نقشش خائن 🖕' in event.text:
+                messag = event.message.message
+                messag = messag.strip('جالبه بدونی ')
+                messag = messag.strip(' نقشش خائن 🖕 هستش')
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ray'] == messag
+                redis.set(me.id,str(get_list))
+                await client.send_message(group_id,'/sv {0}'.format(messag))
+        elif 'جالبه بدونی' in event.text:
+            if 'گرگینه 🐺' in event.text:
+                messag = event.message.message
+                messag = messag.strip('جالبه بدونی ')
+                messag = messag.strip(' نقشش گرگینه 🐺 هستش')
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ray'] == messag
+                redis.set(me.id,str(get_list))
+                await client.send_message(group_id,'/sv {0}'.format(messag))
+        elif 'جالبه بدونی' in event.text:
+            if 'نقشش 🔪قاتل زنجیره ای' in event.text:
+                messag = event.message.message
+                messag = messag.strip('جالبه بدونی ')
+                messag = messag.strip(' نقشش 🔪قاتل زنجیره ای هستش')
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ray'] == messag
+                redis.set(me.id,str(get_list))
+                await client.send_message(group_id,'/sv {0}'.format(messag))
+        elif 'جالبه بدونی' in event.text:
+            if 'نقشش  آتش زن 🔥' in event.text:
+                messag = event.message.message
+                messag = messag.strip('جالبه بدونی ')
+                messag = messag.strip(' نقشش  آتش زن 🔥 هستش')
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                get_list['ray'] == messag
+                redis.set(me.id,str(get_list))
+                await client.send_message(group_id,'/sv {0}'.format(messag))
+        elif 'از کی میخوای نگهبانی کنی؟' == event.text:
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            if not get_list['karagah'] == 0:
+                player = await client.get_entity(get_list['karagah'])
+                await client.send_message(event.sender_id,'نگهبانی کن از {0}'.format(player.first_name))
+            elif not get_list['pishgo'] == 0:
+                player = await client.get_entity(get_list['pishgo'])
+                await client.send_message(event.sender_id,'نگهبانی کن از {0}'.format(player.first_name))
+        elif 'نگهبانی کن از ' in event.text:
+            if '@' in event.text:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                if not get_list['shkar'] == 0:
+                    if event.sender_id == get_list['shkar']:
+                        messag = event.message.message
+                        messag = messag.strip('نگهبانی کن از ')
+                        messag = messag.strip('@')
+                        try:
+                            ssw = await client.get_entity(messag)
+                            get_list['negahbani'] = ssw.first_name
+                            redis.set(me.id,str(get_list))
+                        except Exception as e:
+                            print(e)
+            else:
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                if not get_list['shkar'] == 0:
+                    if event.sender_id == get_list['shkar']:
+                        messag = event.message.message
+                        messag = messag.strip('نگهبانی کن از ')
+                        get_list['negahbani'] = messag
+                        redis.set(me.id,str(get_list))
+        elif 'نتیجه تحقیقات تو نشون میده' in event.text:
+            if 'چیزی نیست جز' in event.text:
+                if 'آتش زن' in event.text:
+                    messag = event.message.message
+                    messag = messag.strip('نتیجه تحقیقات تو نشون میده که ')
+                    messag = messag.strip(' چیزی نیست جز  آتش زن 🔥')
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    get_list['ray'] == messag
+                    redis.set(me.id,str(get_list))
+                    await client.send_message(group_id,'/sv {0}'.format(messag))
+                elif 'توله گرگ' in event.text:
+                    messag = event.message.message
+                    messag = messag.strip('نتیجه تحقیقات تو نشون میده که ')
+                    messag = messag.strip(' چیزی نیست جز توله گرگ 🐶')
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    get_list['ray'] == messag
+                    redis.set(me.id,str(get_list))
+                    await client.send_message(group_id,'/sv {0}'.format(messag))
+                elif 'نفرین' in event.text:
+                    messag = event.message.message
+                    messag = messag.strip('نتیجه تحقیقات تو نشون میده که ')
+                    messag = messag.strip(' چیزی نیست جز نفرین شده 😾')
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    get_list['ray'] == messag
+                    redis.set(me.id,str(get_list))
+                    await client.send_message(group_id,'/sv {0}'.format(messag))
+                elif 'گرگ برفی ' in event.text:
+                    messag = event.message.message
+                    messag = messag.strip('نتیجه تحقیقات تو نشون میده که ')
+                    messag = messag.strip(' چیزی نیست جز  گرگ برفی 🐺☃️')
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    get_list['ray'] == messag
+                    redis.set(me.id,str(get_list))
+                    await client.send_message(group_id,'/sv {0}'.format(messag))
+                elif 'گرگ آلفا' in event.text:
+                    messag = event.message.message
+                    messag = messag.strip('نتیجه تحقیقات تو نشون میده که ')
+                    messag = messag.strip(' چیزی نیست جز گرگ آلفا ⚡️')
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    get_list['ray'] == messag
+                    redis.set(me.id,str(get_list))
+                    await client.send_message(group_id,'/sv {0}'.format(messag))
+                elif 'خائن' in event.text:
+                    messag = event.message.message
+                    messag = messag.strip('نتیجه تحقیقات تو نشون میده که ')
+                    messag = messag.strip(' چیزی نیست جز خائن 🖕')
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    get_list['ray'] == messag
+                    redis.set(me.id,str(get_list))
+                    await client.send_message(group_id,'/sv {0}'.format(messag))
+                elif 'فرقه گرا' in event.text:
+                    messag = event.message.message
+                    messag = messag.strip('نتیجه تحقیقات تو نشون میده که ')
+                    messag = messag.strip(' چیزی نیست جز فرقه گرا 👤')
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    get_list['ray'] == messag
+                    redis.set(me.id,str(get_list))
+                    await client.send_message(group_id,'/sv {0}'.format(messag))
+                elif 'گرگ ایکس' in event.text:
+                    messag = event.message.message
+                    messag = messag.strip('نتیجه تحقیقات تو نشون میده که ')
+                    messag = messag.strip(' چیزی نیست جز گرگ ایکس 🐺🌝')
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    get_list['ray'] == messag
+                    redis.set(me.id,str(get_list))
+                    await client.send_message(group_id,'/sv {0}'.format(messag))
+                elif 'گرگینه' in event.text:
+                    messag = event.message.message
+                    messag = messag.strip('نتیجه تحقیقات تو نشون میده که ')
+                    messag = messag.strip(' چیزی نیست جز گرگینه 🐺')
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    get_list['ray'] == messag
+                    redis.set(me.id,str(get_list))
+                    await client.send_message(group_id,'/sv {0}'.format(messag))
+                elif '🔪قاتل' in event.text:
+                    messag = event.message.message
+                    messag = messag.strip('نتیجه تحقیقات تو نشون میده که ')
+                    messag = messag.strip(' چیزی نیست جز 🔪قاتل زنجیره ای')
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    get_list['ray'] == messag
+                    redis.set(me.id,str(get_list))
+                    await client.send_message(group_id,'/sv {0}'.format(messag))
+    
+    @client.on(events.NewMessage(pattern=r'/sv'))
+    async def sv_ros(event):
+        if event.chat_id == group_id:
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            if not get_list['shkar'] == 0:
+                if get_list['ros'] == 1:
+                    messag = event.message.message
+                    messag = messag.strip('/sv ')
+                    if '@' in messag:
+                        messag = messag.strip('@')
+                        try:
+                            ssw = await client.get_entity(messag)
+                            get_list['ray'] = ssw.first_name
+                            redis.set(me.id,str(get_list))
+                        except Exception as e:
+                            print(e)
                     else:
-                        print("Delete Account!")
-                        pmtags.clear()
-        except pyrogram.errors.exceptions.flood_420.FloodWait:
-            app.send_message(m.chat.id, "**『 نام بردن به دلیل بر خورد با محدودیت تلگرام متوقف شد بعد از هفت دقیقه میتوانم ادامه دهم ! 』**")
-    if m.text == "settgs" or m.text == "ست تگ":
-      mtxt = f"{m.reply_to_message.text}"
-      app.edit_message_text(m.chat.id, msgid, "**『 پیام نام بردن تنظیم شد ! 』**")
-    elif m.text == "gettgs" or m.text == "دریافت پیام نام بردن":
-      app.edit_message_text(m.chat.id, msgid, f"""**┓ آخرین پیام نام بردن تنظیم شده اینگونه است**
-**┛ پیام نام بردن:** `{mtxt}`""")
-    elif m.text == "stoptgs" or m.text == "بسه":
-        men = False
-        app.delete_messages(chatid, m.message_id)
-    elif m.text == "deltgs" or m.text == "پاک":
-        men = False
-        app.delete_messages(chatid, m.message_id)
-        app.delete_messages(chatid, pmtags)
-
-    if "list" in m.text:
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال تنظیم گروه دریافت اعضا... ! 』**")
-        gp = m.text.split()[1]
-        app.edit_message_text(m.chat.id, msgid, "**『 گروه دریافت اعضا تنظیم شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال دریافت اطلاعات اعضا گروه... ! 』**")
-        gcm = app.get_chat_members(gp)
-        app.edit_message_text(m.chat.id, msgid, "**『 اطلاعات مورد نیاز کامل شد ! 』**")
-        gmtext = "**『 لیست اعضا گروه تنظیم شده اینگونه است ! 』**\n"
-        for gg in gcm:
-            if gg.user.username:
-               gmtext += f"@{gg.user.username}\n"
-        app.edit_message_text(m.chat.id, msgid, gmtext)
-    if "دریافت اعضا گروه" in m.text:
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال تنظیم گروه دریافت اعضا... ! 』**")
-        gp = m.text.split()[3]
-        app.edit_message_text(m.chat.id, msgid, "**『 گروه دریافت اعضا تنظیم شد ! 』**")
-        app.edit_message_text(m.chat.id, msgid, "**『 در حال دریافت اطلاعات اعضا گروه... ! 』**")
-        gcm = app.get_chat_members(gp)
-        app.edit_message_text(m.chat.id, msgid, "**『 اطلاعات مورد نیاز اعضا گروه کامل شد ! 』**")
-        gmtext = "**『 لیست اعضا گروه تنظیم شده اینگونه است ! 』**\n"
-        for gg in gcm:
-            if gg.user.username:
-               gmtext += f"@{gg.user.username}\n"
-        app.edit_message_text(m.chat.id, msgid, gmtext)
-
-    if m.text == "ban" or m.text == "مسدود":
-        app.kick_chat_member(chatid, m.reply_to_message.from_user.id)
-        app.edit_message_text(chatid, msgid, f"**『 [کاربر](tg://user?id={m.reply_to_message.from_user.id}) مسدود شد ! 』**")
-    if m.text == "unban" or m.text == "رفع مسدودیت":
-        app.unban_chat_member(chatid, m.reply_to_message.from_user.id)
-        app.edit_message_text(chatid, msgid, f"**『 [کاربر](tg://user?id={m.reply_to_message.from_user.id}) از لیست مسدود ها حذف شد ! 』**")
-
-elif m.text == "setpro" or m.text =".bioclock" 
-async def bioclock(event):
-    if event.fwd_from:
-        return
-    while True:
-        DMY = time.strftime("%d.%m.%Y")
-        HM = time.strftime("%H:%M:%S")
-        bio = f"📅 {DMY} | I am A Pro 😎 | ⌚️ {HM}"
-        logger.info(bio)
-        await event.edit('''ساعت در بیوگرافی با موفقیت ست شد ☑️
-نویسنده ''')
-        try:
-            await client(functions.account.UpdateProfileRequest(  # pylint:disable=E0602
-                about=bio
-            ))
-        except FloodWaitError as ex:
-            logger.warning(str(e))
-            await asyncio.sleep(ex.seconds)
-        # else:
-            # logger.info(r.stringify())
-            # await client.send_message(  # pylint:disable=E0602
-            #     Config.PRIVATE_GROUP_BOT_API_ID,  # pylint:disable=E0602
-            #     "Successfully Changed Profile Bio"
-            # )
-        await asyncio.sleep(DEL_TIME_OUT)
-
-
-    if m.text.split()[0] == "setedit1":
-        edc.clear()
-        edc.append(m.text.split()[1])
-        eds = m.text.split()[2]
-        edp = m.reply_to_message.text
-        app.send_message(chatid, "**『 تنظیم شد ! 』**")
-    if m.text in edc:
-        edi = ""
-        for i in edp.split("\n"):
-            edi += i
-            app.edit_message_text(chatid, msgid, i)
-            sleep(int(eds))
-
-    if m.text.split()[0] == "setedit2":
-        edc2.clear()
-        edc2.append(m.text.split()[1])
-        eds2 = m.text.split()[2]
-        edp2 = m.reply_to_message.text
-        app.send_message(chatid, "**『 تنظیم شد ! 』**")
-    if m.text in edc2:
-        edi = ""
-        for i in edp2.split("\n"):
-            edi += i
-            app.edit_message_text(chatid, msgid, i)
-            sleep(int(eds2))
-
-    if m.text.split()[0] == "setedit3":
-        edc3.clear()
-        edc3.append(m.text.split()[1])
-        eds3 = m.text.split()[2]
-        edp3 = m.reply_to_message.text
-        app.send_message(chatid, "**『 تنظیم شد ! 』**")
-    if m.text in edc3:
-        edi = ""
-        for i in edp3.split("\n"):
-            edi += i
-            app.edit_message_text(chatid, msgid, i)
-            sleep(int(eds3))
-
-    if m.text.split()[0] == "setedit4":
-        edc4.clear()
-        edc4.append(m.text.split()[1])
-        eds4 = m.text.split()[2]
-        edp4 = m.reply_to_message.text
-        app.send_message(chatid, "**『 تنظیم شد ! 』**")
-    if m.text in edc4:
-        edi = ""
-        for i in edp4.split("\n"):
-            edi += i
-            app.edit_message_text(chatid, msgid, i)
-            sleep(int(eds4))
-
-    if m.text.split()[0] == "setedit5":
-        edc5.clear()
-        edc5.append(m.text.split()[1])
-        eds5 = m.text.split()[2]
-        edp5 = m.reply_to_message.text
-        app.send_message(chatid, "**『 تنظیم شد ! 』**")
-    if m.text in edc5:
-        edi = ""
-        for i in edp5.split("\n"):
-            edi += i
-            app.edit_message_text(chatid, msgid, i)
-            sleep(int(eds5))
-# 500 lines fuckkkkkkkkksssss meeeeeeeee
-
+                        get_list['ray'] == messag
+                        redis.set(me.id,str(get_list))
+                
+    @client.on(events.NewMessage(pattern=r'از کی میخوای نگهبانی کنی؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            list_naghsh = []
+            await asyncio.sleep(28)
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            if not get_list['negahbani'] == '':
+                s = await client.get_messages(event.chat_id)
+                await s[0].click(text=get_list['negahbani'])
+            elif not get_list['shkar'] == 0:
+                if not get_list['shkar'] == 0:
+                    shekar = await client.get_entity(int(get_list['shkar']))
+                    s = await client.get_messages(event.chat_id)
+                    await s[0].click(text=shekar.first_name)
+            else:
+                try:
+                    if not get_list['shkar'] == 0:
+                        shekar = await client.get_entity(int(get_list['shkar']))
+                        for i in get_list['naghsh'].split("\n"):
+                            if not shekar.first_name in i:
+                                list_naghsh.append(i)
+                    else :
+                        for i in get_list['naghsh'].split("\n"):
+                            list_naghsh.append(i)
+                except Exception as e:
+                    print(e)
+                random_id = random.randint(0,len(list_naghsh))
+                s = await client.get_messages(event.chat_id)
+                ss = list_naghsh[random_id]
+                await s[0].click(text=ss)
+    
+    @client.on(events.NewMessage(pattern=r'به کی رای میدی که اعدام بشه؟'))
+    async def ros(event):
+        if event.sender_id in bot_id:
+            me = await client.get_me()
+            get_list = redis.get(me.id)
+            get_list = eval(get_list.decode('utf-8'))
+            if get_list['ros'] == 1:
+                if get_list['ray'] == '':
+                    list_naghsh = []
+                    await asyncio.sleep(4)
+                    me = await client.get_me()
+                    get_list = redis.get(me.id)
+                    get_list = eval(get_list.decode('utf-8'))
+                    try:
+                        if not get_list['shkar'] == 0:
+                            shekar = await client.get_entity(int(get_list['shkar']))
+                            for i in get_list['naghsh'].split("\n"):
+                                if not shekar.first_name in i:
+                                    list_naghsh.append(i)
+                        else :
+                            for i in get_list['naghsh'].split("\n"):
+                                list_naghsh.append(i)
+                    except Exception as e:
+                        print(e)
+                    random_id = random.randint(0,len(list_naghsh))
+                    s = await client.get_messages(event.chat_id)
+                    ss = list_naghsh[random_id]
+                    await client.send_message(int(group_id),"رای \n"+ss)
+                    await s[0].click(text=ss)
+                else:
+                    s = await client.get_messages(event.chat_id)
+                    await s[0].click(text=get_list['ray'])
+                    get_list['ray'] == ''
+                    redis.set(me.id,str(get_list))
+            else:
+                list_naghsh = []
+                await asyncio.sleep(4)
+                me = await client.get_me()
+                get_list = redis.get(me.id)
+                get_list = eval(get_list.decode('utf-8'))
+                try:
+                    if not get_list['shkar'] == 0:
+                        shekar = await client.get_entity(int(get_list['shkar']))
+                        for i in get_list['naghsh'].split("\n"):
+                            if not shekar.first_name in i:
+                                list_naghsh.append(i)
+                    else :
+                        for i in get_list['naghsh'].split("\n"):
+                            list_naghsh.append(i)
+                except Exception as e:
+                    print(e)
+                random_id = random.randint(0,len(list_naghsh))
+                s = await client.get_messages(event.chat_id)
+                ss = list_naghsh[random_id]
+                await client.send_message(int(group_id),"رای \n"+ss)
+                await s[0].click(text=ss)
+                    
+    
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
+client.start()
+client.run_until_disconnected() .
 app.run()
