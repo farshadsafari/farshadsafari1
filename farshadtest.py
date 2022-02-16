@@ -116,7 +116,7 @@ def heln(c, m):
         app.send_message(m.chat.id, "**Im Online @farrshad シ︎**", reply_to_message_id=m.message_id)
         
     if "#players" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "**/filli**",reply_to_message_id=m.message_id)
+        app.send_message(m.chat.id, "/filli",reply_to_message_id=m.message_id)
         
     if "#players" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**/join**",)
