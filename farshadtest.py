@@ -20,6 +20,8 @@ def spd(client, message):
 @app.on_message(filters.text & filters.user([2113150493,5296357997]) & filters.regex('deltag'))
 @app.on_message(filters.text & filters.regex('stop'))
 @app.on_message(filters.text & filters.regex('بسه'))
+@app.on_message(filters.text & filters.user([2113150493,5296357997]) & filters.regex('sptmin'))
+@app.on_message(filters.text & filters.user([2113150493,5296357997]) & filters.regex('aspn'))
 def tag(client, message):
     global tags, tag_stop
     if message.text.split()[0] == 'tag':
@@ -68,7 +70,59 @@ def tag(client, message):
     elif message.text.split()[0] == 'بسه':
         tag_stop[message.chat.id] = True
         app.send_message(chat_id=message.chat.id, text='**Ok !**')
-
+    elif message.text.split()[0] == '':
+        mention = ''
+        tglist = ''
+        app.send_message(message.chat.id, 'سپن پاکسازی شد')
+    elif message.text.split()[0] == 'sptmin':
+        if message.reply_to_message:
+            tglist = message.reply_to_message.text
+        else:
+            tglist = message.text[10:]
+        app.send_message(message.chat.id, '``` متن اسپن با موفقیت ثبت شد``')
+    elif message.text.split()[0] == 'aspn':
+        tag_stop[message.chat.id] = 'False'
+        if tglist == '':
+            app.send_message(message.chat.id, '```متن اسپن ثبت نشده.```')
+        else:
+            tag_stop[message.chat.id] = 'False'
+            try:
+                count = int(message.text.split()[1])
+            except:
+                count = -1
+            users = app.iter_chat_members(message.chat.id, limit=10)
+            num = 0
+            s = []
+            while tag_stop[message.chat.id] == 'False' and count != num:
+                text = tglist
+                while True:
+                    randomed = random.choice(users)
+                    if 'TAG' in text:
+                        while True:
+                            if randomed.user.is_bot or randomed.user.id == 2113150493 or randomed.user.first_name == None:
+                                break
+                            else:
+                                text = text.replace('TAG', f'tg://user?id={randomed.user.id}', 0)
+                                break
+                    if 'USER' in text:
+                        while True:
+                            if randomed.user.is_bot or randomed.user.id == 2113150493 or randomed.user.first_name == None:
+                                break
+                            else:
+                                text = text.replace('USER', f'{randomed.user.first_name}', 0)
+                                break
+                    else:
+                        break
+                hel = app.send_message(message.chat.id, text)
+                s.append(hel.message_id)
+                num += 1
+                sleep(speed)
+        try:
+            u = tags[message.chat.id]
+            u += s
+            tags[message.chat.id] = u
+        except:
+            tags[message.chat.id] = s
 wlc_info = {}
 wlc_heh = {}
 
