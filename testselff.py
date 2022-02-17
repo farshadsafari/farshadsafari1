@@ -269,7 +269,7 @@ def myself(c, m):
     elif m.text == "Getbanner" or m.text == "دریافت بنر":
       app.edit_message_text(m.chat.id, msgid, f"""**┓ the last banner set**
 **┛ Banner:** `{banner}`""")
-    elif "Start" in m.text:
+    elif "Startatk" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Adjusting banner upload speed...  』**")
         adsp = m.text.split()[1]
         app.edit_message_text(m.chat.id, msgid, "**『 Banner upload speed set ✔ 』**")
@@ -286,7 +286,7 @@ def myself(c, m):
             except pyrogram.errors.exceptions.bad_request_400.UsernameNotOccupied:
                 app.edit_message_text(m.chat.id, msgid, "**『 ID the mistake 』**")
         app.edit_message_text(m.chat.id, msgid, "**『 Stop🛑 』**")
-    elif "start" in m.text:
+    elif "startatk" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Adjusting banner upload speed...  』**")
         adsp = m.text.split()[2]
         app.edit_message_text(m.chat.id, msgid, "**『 Banner upload speed set ✔ 』**")
@@ -386,10 +386,10 @@ def myself(c, m):
                         pmtags.clear()
         except pyrogram.errors.exceptions.flood_420.FloodWait:
             app.send_message(m.chat.id, "**『 Try another 7 minutes⛔ 』**")
-    if m.text == "Settg" or m.text == "settg":
+    if m.text == "Settg" or m.text == "Settg":
       mtxt = f"{m.reply_to_message.text}"
       app.edit_message_text(m.chat.id, msgid, "**『 set✅ 』**")
-    elif m.text == "Gettg" or m.text == "gettg":
+    elif m.text == "Gettg" or m.text == "Gettg":
       app.edit_message_text(m.chat.id, msgid, f"""**┓ Text tag **
 **┛ Text tag:** `{mtxt}`""")
     elif m.text == "Stop" or m.text == "Stop":
@@ -400,7 +400,7 @@ def myself(c, m):
         app.delete_messages(chatid, m.message_id)
         app.delete_messages(chatid, pmtags)
 
-    if "List" in m.text:
+    if "Listgroup" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Set group... 』**")
         gp = m.text.split()[1]
         app.edit_message_text(m.chat.id, msgid, "**『 Set group✅ 』**")
@@ -412,7 +412,7 @@ def myself(c, m):
             if gg.user.username:
                gmtext += f"@{gg.user.username}\n"
         app.edit_message_text(m.chat.id, msgid, gmtext)
-    if "list" in m.text:
+    if "listgroup" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Set group... 』**")
         gp = m.text.split()[3]
         app.edit_message_text(m.chat.id, msgid, "**『 Set group✅ 』**")
