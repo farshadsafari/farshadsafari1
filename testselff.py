@@ -39,16 +39,16 @@ def myself(c, m):
     global edc,edc2,edc3,edc4,edc5
     global eds,eds2,eds3,eds4,eds5
     global edp,edp2,edp3,edp4,edp5
-    if m.text == "setping" or m.text == "ست پینگ":
+    if m.text == "setping" or m.text == "Setping":
         pmping = m.reply_to_message.text
         app.edit_message_text(m.chat.id, msgid, "**『Ping message set✅』**")
-    elif m.text == "ping" or m.text == "پینگ":
+    elif m.text == "ping" or m.text == "Ping":
         app.edit_message_text(chatid, msgid, f"{pmping}", parse_mode="HTML")
-    elif m.text == "delping" or m.text == "دیل پینگ":
+    elif m.text == "delping" or m.text == "Delping":
         pmping = ""
         app.edit_message_text(chatid, msgid, "**『Ping message deleted🗑✔』**")
 
-    elif m.text == "stats" or m.text == "امار ها":
+    elif m.text == "Stats" or m.text == "امار ها":
         if m.reply_to_message:
             target = m.reply_to_message.from_user
         else:
@@ -67,7 +67,7 @@ def myself(c, m):
 ┫  win: {tedadBord} (%{darsadBord}) 
 ┛  Lost: {tedadBakht} (%{darsadBakht})**""")
 
-    elif m.text == "kills" or m.text == "قتل ها":
+    elif m.text == "Kills" or m.text == "قتل ها":
         if m.reply_to_message:
             target = m.reply_to_message.from_user
         else:
@@ -91,7 +91,7 @@ def myself(c, m):
             text = text.replace('999999','┛ 5:')
         app.edit_message_text(chatid, msgid, text)
 
-    elif m.text == "killedby" or m.text == "قاتل ها":
+    elif m.text == "Killedby" or m.text == "قاتل ها":
         if m.reply_to_message:
             targ = m.reply_to_message.from_user
         else:
@@ -114,7 +114,7 @@ def myself(c, m):
             tixt = tixt.replace('999999','┛ 5:')
         app.edit_message_text(chatid, msgid, tixt)
 
-    elif m.text == "Userid" or m.text == "شناسه کاربر":
+    elif m.text == "Userid" or m.text == "userid":
         if m.reply_to_message:
             tar = m.reply_to_message.from_user
         else:
@@ -122,31 +122,31 @@ def myself(c, m):
         app.edit_message_text(chatid, msgid, f'''**┓** **User ID [{tar.first_name}](tg://user?id={tar.id}) Found**
 **┛ User ID:** `{tar.id}`''')
 
-    if "userid" in m.text:
+    if "Userid" in m.text:
       users = m.text.split()[1]
       ids = app.get_users(users)
       app.edit_message_text(chatid, msgid, f'''**┓** **User ID [{ids.first_name}](tg://user?id={ids.id}) Found**
 **┛ User ID:** `{ids.id}`''')
-    if "شناسه کاربر" in m.text:
+    if "userid" in m.text:
       users = m.text.split()[2]
       ids = app.get_users(users)
       app.edit_message_text(chatid, msgid, f'''**┓** **User ID [{ids.first_name}](tg://user?id={ids.id}) Found**
 **┛ User ID:** `{ids.id}`''')
 
-    if "userse" in m.text:
+    if "Userse" in m.text:
       users = m.text.split()[1]
       ids = app.get_users(users)
       app.edit_message_text(chatid, msgid, f"**『 User [{ids.first_name}](tg://user?id={ids.id}) Found 』**")
-    if "Find the user" in m.text:
+    if "userse" in m.text:
       users = m.text.split()[3]
       ids = app.get_users(users)
       app.edit_message_text(chatid, msgid, f"**『 User [{ids.first_name}](tg://user?id={ids.id}) Found  』**")
 
-    if m.text == "groupid" or m.text == "Group ID":
+    if m.text == "groupid" or m.text == "Groupid":
       app.edit_message_text(chatid, msgid, f'''**┓** **Group ID {chatti} Found**
 **┛ Group ID:** `{chatid}`''')
 
-    if "stats" in m.text:
+    if "Stats" in m.text:
       userss = m.text.split()[1]
       idss = app.get_users(userss)
       stats = get(f"https://Tgwerewolf.com/stats/playerstats/?pid={idss.id}&json=true").json()
@@ -179,7 +179,7 @@ def myself(c, m):
 ┫ win: {tedadBord} (%{darsadBord}) 
 ┛ Lost: {tedadBakht} (%{darsadBakht})**""")
 
-    elif "kills" in m.text:
+    elif "Kills" in m.text:
       usersss = m.text.split()[2]
       idsss = app.get_users(usersss)
       s = get(f"http://tgwerewolf.com/stats/PlayerKills/?pid={idsss.id}&json=true").json()
@@ -200,7 +200,7 @@ def myself(c, m):
             text = text.replace('999998','┫ 4:')
             text = text.replace('999999','┛ 5:')
       app.edit_message_text(chatid, msgid, text)
-    elif "kills" in m.text:
+    elif "Kills" in m.text:
       usersss = m.text.split()[1]
       idsss = app.get_users(usersss)
       s = get(f"http://tgwerewolf.com/stats/PlayerKills/?pid={idsss.id}&json=true").json()
@@ -222,7 +222,7 @@ def myself(c, m):
             text = text.replace('999999','┛ 5:')
       app.edit_message_text(chatid, msgid, text)
 
-    elif "killedby" in m.text:
+    elif "Killedby" in m.text:
       userssss = m.text.split()[1]
       idssss = app.get_users(userssss)
       t = get(f"http://tgwerewolf.com/stats/PlayerKilledBy/?pid={idssss.id}&json=true").json()
@@ -263,13 +263,13 @@ def myself(c, m):
             tixt = tixt.replace('999999','┛ 5:')
       app.edit_message_text(chatid, msgid, tixt)
 
-    if m.text == "setbanner" or m.text == "تنظیم بنر":
+    if m.text == "Setbanner" or m.text == "تنظیم بنر":
       banner = m.reply_to_message.text
       app.edit_message_text(m.chat.id, msgid, "**『 Banner set✅ 』**")
-    elif m.text == "getbanner" or m.text == "دریافت بنر":
+    elif m.text == "Getbanner" or m.text == "دریافت بنر":
       app.edit_message_text(m.chat.id, msgid, f"""**┓ the last banner set**
 **┛ Banner:** `{banner}`""")
-    elif "sendbanner" in m.text:
+    elif "Start" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Adjusting banner upload speed...  』**")
         adsp = m.text.split()[1]
         app.edit_message_text(m.chat.id, msgid, "**『 Banner upload speed set ✔ 』**")
@@ -286,7 +286,7 @@ def myself(c, m):
             except pyrogram.errors.exceptions.bad_request_400.UsernameNotOccupied:
                 app.edit_message_text(m.chat.id, msgid, "**『 ID the mistake 』**")
         app.edit_message_text(m.chat.id, msgid, "**『 Stop🛑 』**")
-    elif "ارسال بنر" in m.text:
+    elif "start" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Adjusting banner upload speed...  』**")
         adsp = m.text.split()[2]
         app.edit_message_text(m.chat.id, msgid, "**『 Banner upload speed set ✔ 』**")
@@ -304,7 +304,7 @@ def myself(c, m):
                 app.edit_message_text(m.chat.id, msgid, "**『 ID the mistake 』**")
         app.edit_message_text(m.chat.id, msgid, "**『 Stop🛑 』**")
 
-    elif "adduser" in m.text:
+    elif "Adduser" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Set group...  』**")
         agp = m.text.split()[1]
         app.edit_message_text(m.chat.id, msgid, "**『 Set Group✔ 』**")
@@ -333,7 +333,7 @@ def myself(c, m):
             except pyrogram.errors.exceptions.flood_420.FloodWait:
                 app.edit_message_text(m.chat.id, msgid, "**『 Try another 7 minutes⛔ 』**",sleep(440))
         app.edit_message_text(m.chat.id, msgid, "**『 Stop Add 』**")
-    elif "ADD User" in m.text:
+    elif "adduser" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Set group... 』**")
         agp = m.text.split()[2]
         app.edit_message_text(m.chat.id, msgid, "**『 Set Group✔ 』**")
@@ -363,7 +363,7 @@ def myself(c, m):
                 app.edit_message_text(m.chat.id, msgid, "**『 Try another 7 minutes⛔ 』**",sleep(440))
         app.edit_message_text(m.chat.id, msgid, "**『 Stop Add 』**")
 
-    if "tgs" in m.text:
+    if "tg" in m.text:
         msp = m.text.split()[1]
         app.delete_messages(chatid, m.message_id)
         try:       
@@ -386,21 +386,21 @@ def myself(c, m):
                         pmtags.clear()
         except pyrogram.errors.exceptions.flood_420.FloodWait:
             app.send_message(m.chat.id, "**『 Try another 7 minutes⛔ 』**")
-    if m.text == "settg" or m.text == "settg":
+    if m.text == "Settg" or m.text == "settg":
       mtxt = f"{m.reply_to_message.text}"
       app.edit_message_text(m.chat.id, msgid, "**『 set✅ 』**")
-    elif m.text == "gettg" or m.text == "gettg":
+    elif m.text == "Gettg" or m.text == "gettg":
       app.edit_message_text(m.chat.id, msgid, f"""**┓ Text tag **
 **┛ Text tag:** `{mtxt}`""")
     elif m.text == "Stop" or m.text == "Stop":
         men = False
         app.delete_messages(chatid, m.message_id)
-    elif m.text == "del" or m.text == "del":
+    elif m.text == "Del" or m.text == "Del":
         men = False
         app.delete_messages(chatid, m.message_id)
         app.delete_messages(chatid, pmtags)
 
-    if "list" in m.text:
+    if "List" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Set group... 』**")
         gp = m.text.split()[1]
         app.edit_message_text(m.chat.id, msgid, "**『 Set group✅ 』**")
@@ -412,7 +412,7 @@ def myself(c, m):
             if gg.user.username:
                gmtext += f"@{gg.user.username}\n"
         app.edit_message_text(m.chat.id, msgid, gmtext)
-    if "دریافت اعضا گروه" in m.text:
+    if "list" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Set group... 』**")
         gp = m.text.split()[3]
         app.edit_message_text(m.chat.id, msgid, "**『 Set group✅ 』**")
@@ -425,10 +425,10 @@ def myself(c, m):
                gmtext += f"@{gg.user.username}\n"
         app.edit_message_text(m.chat.id, msgid, gmtext)
 
-    if m.text == "ban" or m.text == "مسدود":
-        app.kick_chat_member(chatid, m.reply_to_message.from_user.id)
+    if m.text == "ban" or m.text == "Ban":
+        app.ban_chat_member(chatid, m.reply_to_message.from_user.id)
         app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) Ban📛 』**")
-    if m.text == "unban" or m.text == "رفع مسدودیت":
+    if m.text == "unban" or m.text == "Unban":
         app.unban_chat_member(chatid, m.reply_to_message.from_user.id)
         app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id})Un ban ✅ 』**")
 
