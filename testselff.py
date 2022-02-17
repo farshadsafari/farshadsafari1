@@ -433,7 +433,7 @@ def myself(c, m):
         app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id})Un ban ✅ 』**")
 
         if m.text == "left" or m.text == "left":
-        app.left_chat_member(chatid, m.message.from_user.id)
+        app.left_chat_member(chatid, m.reply_to_message.from_user.id)
         app.edit_message_text(chatid, msgid, f"**『  test 』**")
         
     if m.text.split()[0] == "setedit1":
