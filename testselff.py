@@ -363,7 +363,7 @@ def myself(c, m):
                 app.edit_message_text(m.chat.id, msgid, "**『 Try another 7 minutes⛔ 』**",sleep(440))
         app.edit_message_text(m.chat.id, msgid, "**『 Stop Add 』**")
 
-    if "tg" in m.text:
+    if "Tagg" in m.text:
         msp = m.text.split()[1]
         app.delete_messages(chatid, m.message_id)
         try:       
@@ -400,7 +400,7 @@ def myself(c, m):
         app.delete_messages(chatid, m.message_id)
         app.delete_messages(chatid, pmtags)
 
-    if "Listgroup" in m.text:
+    if "Listuser" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Set group... 』**")
         gp = m.text.split()[1]
         app.edit_message_text(m.chat.id, msgid, "**『 Set group✅ 』**")
@@ -412,7 +412,7 @@ def myself(c, m):
             if gg.user.username:
                gmtext += f"@{gg.user.username}\n"
         app.edit_message_text(m.chat.id, msgid, gmtext)
-    if "listgroup" in m.text:
+    if "listuser" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Set group... 』**")
         gp = m.text.split()[3]
         app.edit_message_text(m.chat.id, msgid, "**『 Set group✅ 』**")
