@@ -1,4 +1,4 @@
-from pyrogram import Client, Filters as filters
+from pyrogram import Client, filters
 from requests import get
 import pyrogram
 import json
@@ -6,9 +6,9 @@ from time import sleep
 
 pmtags = []
 
-feri = 'BACx5OIph6_9dsghZo87y5Vl3juIQ5mTWLg0icvI2VaAU5a-Wv8U_fD7XfLEzDRQNDhLHmfAPQRPbtuwlwVEU9vK21kNFny_yRj6Br4QXNlo4wBhhrp1u6_1EQvYTJMpkbjxwBCA__c2FYV68h9euis7LLxqWvw-_vC72F_ZyQzk-TTsk9Njzf-c1bxqUP2omVPQSOzwEU1x1gC_vE51g3qQcuURB9EusN95GPIi8enADicMByTdSZjJadVl3vdiq0MAFR0qHReYM7nRJEQfqek1hqb24R7VBufVzsatKIWeuFOAqGUEWNdXVVnhkTo_Xe_j0sqTtUSo9C-uaVeRW8EAAAAAATuwAm0A'
+feri = 'BABeirG8XZbo79Qu4oOQVlv03JnBsEKUHi31hiVIKFjbCvWpViec-7FUAZUAcrCDbi_7yVmR7HwzkaV957zCsthd0QfWusGwSKLQxd06jwSndBgQwFBd-vKeawz-shGefbp8Rba-9x0qcXS6AQu2DI7BK9VhNqWvW-A0p8GvDQMXOvLRMqnkTyENnJW4ruAVHbGISmFvGZQSXg0FTWReNLG7XSvlXjqXTr9HoiOTVLTky7nbA5X9QqAgF-kLjpMCTOdDNCbxIvnATEKxXAmBvwEP14GghRO27Auwfg-l6O6BKAlRbFcGQ1yZerm0XwIGLHXd2FkxYMNjBiszae9qOgKMffQeHQA'
 
-app = Client(session_name=feri, api_id=1974143, api_hash='025ac6fb9b7d16993d855de0bc387fee')
+app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
 
 men = True
 
