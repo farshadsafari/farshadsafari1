@@ -77,7 +77,7 @@ def myself(c, m):
                 app.edit_message_text(chatid, msgid, f"[『 No State 』](tg://user?id={target.id})")
                 return
         text = f'''**•User information ➥[{target.first_name}](tg://user?id={target.id})
-•kills list: **
+•kills list:**
 '''
         i = 999994
         for user in s:
@@ -89,7 +89,7 @@ def myself(c, m):
             text = text.replace('999997','•3 ➥')
             text = text.replace('999998','•4 ➥')
             text = text.replace('999999','•5 ➥')
-        app.edit_message_text(chatid, msgid, text)
+        app.edit_message_text(chatid, msgid, text) 
 
     elif m.text == "Killedby" or m.text == "قاتل ها":
         if m.reply_to_message:
