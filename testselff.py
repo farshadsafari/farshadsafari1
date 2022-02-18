@@ -325,14 +325,14 @@ def myself(c, m):
             except pyrogram.errors.exceptions.bad_request_400.UsernameNotOccupied:
                 app.edit_message_text(m.chat.id, msgid, "**『 No ID❗️ 』**")
             except pyrogram.errors.exceptions.bad_request_400.PeerFlood:
-                app.edit_message_text(m.chat.id, msgid, "**『 No ID❗️ 』**")
+                app.edit_message_text(m.chat.id, msgid, "**『 Error❗️ 』**")
             except pyrogram.errors.exceptions.bad_request_400.BadRequest:
-                app.edit_message_text(m.chat.id, msgid, "**『 No ID❗️ 』**")
+                app.edit_message_text(m.chat.id, msgid, "**『 Error❗️ 』**")
             except pyrogram.errors.exceptions.forbidden_403.Forbidden:
-                app.edit_message_text(m.chat.id, msgid, "**『 No ID❗️ 』**")
+                app.edit_message_text(m.chat.id, msgid, "**『 Error❗️ 』**")
             except pyrogram.errors.exceptions.flood_420.FloodWait:
                 app.edit_message_text(m.chat.id, msgid, "**『 Try another 7 minutes⛔ 』**",sleep(440))
-        app.edit_message_text(m.chat.id, msgid, "**『 Stop Add 』**")
+        app.edit_message_text(m.chat.id, msgid, "**『 Stop Add🛑 』**")
     elif "adduser" in m.text:
         app.edit_message_text(m.chat.id, msgid, "**『 Set group... 』**")
         agp = m.text.split()[2]
@@ -354,14 +354,14 @@ def myself(c, m):
             except pyrogram.errors.exceptions.bad_request_400.UsernameNotOccupied:
                 app.edit_message_text(m.chat.id, msgid, "**『 No ID❗️ 』**")
             except pyrogram.errors.exceptions.bad_request_400.PeerFlood:
-                app.edit_message_text(m.chat.id, msgid, "**『 No ID❗️ 』**")
+                app.edit_message_text(m.chat.id, msgid, "**『 Error❗️ 』**")
             except pyrogram.errors.exceptions.bad_request_400.BadRequest:
-                app.edit_message_text(m.chat.id, msgid, "**『 No ID❗️ 』**")
+                app.edit_message_text(m.chat.id, msgid, "**『 Error❗️ 』**")
             except pyrogram.errors.exceptions.forbidden_403.Forbidden:
-                app.edit_message_text(m.chat.id, msgid, "**『 No ID❗️ 』**")
+                app.edit_message_text(m.chat.id, msgid, "**『 Error❗️ 』**")
             except pyrogram.errors.exceptions.flood_420.FloodWait:
                 app.edit_message_text(m.chat.id, msgid, "**『 Try another 7 minutes⛔ 』**",sleep(440))
-        app.edit_message_text(m.chat.id, msgid, "**『 Stop Add 』**")
+        app.edit_message_text(m.chat.id, msgid, "**『 Stop Add🛑 』**")
 
     if "Tagg" in m.text:
         msp = m.text.split()[1]
@@ -431,6 +431,13 @@ def myself(c, m):
     if m.text == "unban" or m.text == "Unban":
         app.unban_chat_member(chatid, m.reply_to_message.from_user.id)
         app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) Un ban ✅ 』**")
+
+        if m.text == "Kick" or m.text == "kick":
+        app.ban_chat_member(chatid, m.reply_to_message.from_user.id)
+        app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) TEST 』**")
+    if m.text == "Kick" or m.text == "kick":
+        app.unban_chat_member(chatid, m.reply_to_message.from_user.id)
+        app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) TEST 』**")
 
  
     if m.text.split()[0] == "setedit1":
