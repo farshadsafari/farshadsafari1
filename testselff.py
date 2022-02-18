@@ -100,7 +100,7 @@ def myself(c, m):
         if not t:
                 app.edit_message_text(chatid, msgid, f"[『 No State 』](tg://user?id={targ.id})")
                 return
-        tixt = f'''** •User information ➥ [{targ.first_name}](tg://user?id={targ.id})
+        tixt = f'''**•User information ➥ [{targ.first_name}](tg://user?id={targ.id})
 •killedby list:**
 '''
         o = 999994
@@ -174,7 +174,7 @@ def myself(c, m):
       darsadBord = stats["won"]["percent"]
       tedadBakht = stats["lost"]["total"]
       darsadBakht = stats["lost"]["percent"]
-      app.edit_message_text(chatid, msgid, f"""** •User information ➥[{idss.first_name}](tg://user?id={idss.id})
+      app.edit_message_text(chatid, msgid, f"""**•User information ➥[{idss.first_name}](tg://user?id={idss.id})
 •Games ➥ {tedadBazia}
 •win ➥ {tedadBord} (%{darsadBord}) 
 •Lost ➥ {tedadBakht} (%{darsadBakht})**""")
