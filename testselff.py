@@ -84,7 +84,7 @@ def myself(c, m):
             text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
             text
             i += 1
-            text = text.replace'999995','•1 ➥'
+            text = text.replace('999995''•1 ➥')
             text = text.replace('999996','•2 ➥')
             text = text.replace('999997','•3 ➥')
             text = text.replace('999998','•4 ➥')
@@ -194,7 +194,7 @@ def myself(c, m):
             text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
             text
             i += 1
-            text = text.replace'999995','•1 ➥'
+            text = text.replace('999995''•1 ➥')
             text = text.replace('999996','•2 ➥')
             text = text.replace('999997','•3 ➥')
             text = text.replace('999998','•4 ➥')
@@ -215,7 +215,7 @@ def myself(c, m):
             text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
             text
             i += 1
-            text = text.replace'999995','•1 ➥'
+            text = text.replace('999995','•1 ➥')
             text = text.replace('999996','•2 ➥')
             text = text.replace('999997','•3 ➥')
             text = text.replace('999998','•4 ➥')
