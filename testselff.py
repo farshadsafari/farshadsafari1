@@ -64,8 +64,8 @@ def myself(c, m):
         darsadBakht = stats["lost"]["percent"]
         app.edit_message_text(chatid, msgid, f"""**•User information ➥ [{target.first_name}](tg://user?id={target.id})
 •Games ➥ {tedadBazia}
-•win ➥ {tedadBord} (%{darsadBord}) 
-•Lost ➥ {tedadBakht} (%{darsadBakht})**""")
+•win ➥ {tedadBord} ⊰%{darsadBord}⊱ 
+•Lost ➥ {tedadBakht} ⊰%{darsadBakht}⊱**""")
 
     elif m.text == "Kills" or m.text == "قتل ها":
         if m.reply_to_message:
