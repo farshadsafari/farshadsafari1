@@ -433,12 +433,8 @@ def myself(c, m):
         app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) Un ban ✅ 』**")
 
         if m.text == "Kick" or m.text == "kick":
-        app.ban_chat_member(chatid, m.reply_to_message.from_user.id)
+        app.kick_chat_member(chatid, m.reply_to_message.from_user.id)
         app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) TEST 』**")
-    if m.text == "Kick" or m.text == "kick":
-        app.unban_chat_member(chatid, m.reply_to_message.from_user.id)
-        app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) TEST 』**")
-
  
     if m.text.split()[0] == "setedit1":
         edc.clear()
