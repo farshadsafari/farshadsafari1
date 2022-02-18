@@ -76,7 +76,7 @@ def myself(c, m):
         if not s:
                 app.edit_message_text(chatid, msgid, f"[『 No State 』](tg://user?id={target.id})")
                 return
-        text = f'''** •User information ➥[{target.first_name}](tg://user?id={target.id})
+        text = f'''**•User information ➥[{target.first_name}](tg://user?id={target.id})
 •kills list: **
 '''
         i = 999994
@@ -105,7 +105,7 @@ def myself(c, m):
 '''
         o = 999994
         for user in t:
-            tixt += f'**{o+1} {user["name"]} (`{user["times"]}`)**\n'
+            tixt += f'**{o+1} {user["name"]} ⊰`{user["times"]}`⊱**\n'
             o += 1
             tixt = tixt.replace('999995','•1 ➥')
             tixt = tixt.replace('999996','•2 ➥')
@@ -191,7 +191,7 @@ def myself(c, m):
 '''
       i = 999994
       for user in s:
-            text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
+            text += f'**{i+1} {user["name"]} ⊰`{user["times"]}`⊱**\n'
             text
             i += 1
             text = text.replace('999995','•1 ➥')
@@ -212,7 +212,7 @@ def myself(c, m):
 '''
       i = 999994
       for user in s:
-            text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
+            text += f'**{i+1} {user["name"]} ⊰`{user["times"]}`⊱**\n'
             text
             i += 1
             text = text.replace('999995','•1 ➥')
@@ -234,7 +234,7 @@ def myself(c, m):
 '''
       o = 999994
       for user in t:
-            tixt += f'**{o+1} {user["name"]} (`{user["times"]}`)**\n'
+            tixt += f'**{o+1} {user["name"]} ⊰`{user["times"]}`⊱**\n'
             o += 1
             tixt = tixt.replace('999995','•1 ➥')
             tixt = tixt.replace('999996','•2 ➥')
@@ -254,7 +254,7 @@ def myself(c, m):
 '''
       o = 999994
       for user in t:
-            tixt += f'**{o+1} {user["name"]} (`{user["times"]}`)**\n'
+            tixt += f'**{o+1} {user["name"]} ⊰`{user["times"]}`⊱**\n'
             o += 1
             tixt = tixt.replace('999995','•1 ➥')
             tixt = tixt.replace('999996','•2 ➥')
