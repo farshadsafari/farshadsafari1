@@ -432,10 +432,7 @@ def myself(c, m):
         app.unban_chat_member(chatid, m.reply_to_message.from_user.id)
         app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) Un ban ✅ 』**")
 
-        if m.text == "test" or m.text == "kick":
-        app.set_profile_photo(chatid, m.reply_to_message.from_user.id)
-       
- 
+        
     if m.text.split()[0] == "setedit1":
         edc.clear()
         edc.append(m.text.split()[1])
