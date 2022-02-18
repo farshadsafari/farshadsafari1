@@ -10,6 +10,32 @@ feri = 'BABeirG8XZbo79Qu4oOQVlv03JnBsEKUHi31hiVIKFjbCvWpViec-7FUAZUAcrCDbi_7yVmR
 
 app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
 
+
+@app.on_message(filters.command("SetWlcc","") & filters.user(2113150493))
+def setwlc(client,message):
+    global wlc_info,wlc_heh
+    chat_id = message.chat.id
+    if message.reply_to_message:
+        wlc_heh[message.chat.id] = True
+        wlc_info[chat_id] = message.reply_to_message.text
+        message.reply_text("wlc seted.")
+
+@app.on_message(filters.new_chat_members)
+def wlc(client,message):
+    chat_id = message.chat.id
+    try:
+        if wlc_heh[message.chat.id]:
+            try:
+                message.reply_text(wlc_info[chat_id])
+            except KeyError:
+                return
+    except KeyError:
+        return
+@app.on_message(filters.command("WlccOff","") & filters.user(2113150493))
+def wlcof(clientt,message):
+    global wlc_heh
+    wlc_heh[message.chat.id] = False
+    
 men = True
 
 edc = []
@@ -431,31 +457,6 @@ def myself(c, m):
     if m.text == "unban" or m.text == "Unban":
         app.unban_chat_member(chatid, m.reply_to_message.from_user.id)
         app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) Un ban ✅ 』**")
-
-@app.on_message(filters.command("SetWlcc","") & filters.user(2113150493))
-def setwlc(client,message):
-    global wlc_info,wlc_heh
-    chat_id = message.chat.id
-    if message.reply_to_message:
-        wlc_heh[message.chat.id] = True
-        wlc_info[chat_id] = message.reply_to_message.text
-        message.reply_text("wlc seted.")
-
-@app.on_message(filters.new_chat_members)
-def wlc(client,message):
-    chat_id = message.chat.id
-    try:
-        if wlc_heh[message.chat.id]:
-            try:
-                message.reply_text(wlc_info[chat_id])
-            except KeyError:
-                return
-    except KeyError:
-        return
-@app.on_message(filters.command("WlccOff","") & filters.user(2113150493))
-def wlcof(clientt,message):
-    global wlc_heh
-    wlc_heh[message.chat.id] = False
         
     if m.text.split()[0] == "setedit1":
         edc.clear()
