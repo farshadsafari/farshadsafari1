@@ -179,15 +179,15 @@ def myself(c, m):
 •win ➥ {tedadBord} (%{darsadBord}) 
 •Lost ➥ {tedadBakht} (%{darsadBakht})**""")
 
-    elif "Kills" in m.text:
+    elif "قتل ها" in m.text:
       usersss = m.text.split()[2]
       idsss = app.get_users(usersss)
       s = get(f"http://tgwerewolf.com/stats/PlayerKills/?pid={idsss.id}&json=true").json()
       if not s:
-                app.edit_message_text(chatid, msgid, f"[『 No Stats 』](tg://user?id={idsss.id})")
+                app.edit_message_text(chatid, msgid, f"[『 No Stats  』](tg://user?id={idsss.id})")
                 return
-      text = f'''**•User information ➥[{idsss.first_name}](tg://user?id={idsss.id})
-•List Kills: **
+      text = f'''**•User information ➥ [{idsss.first_name}](tg://user?id={idsss.id})
+•List Kills:**
 '''
       i = 999994
       for user in s:
@@ -205,7 +205,7 @@ def myself(c, m):
       idsss = app.get_users(usersss)
       s = get(f"http://tgwerewolf.com/stats/PlayerKills/?pid={idsss.id}&json=true").json()
       if not s:
-                app.edit_message_text(chatid, msgid, f"[『 No Stats 』](tg://user?id={idsss.id})")
+                app.edit_message_text(chatid, msgid, f"[『 No Stats  』](tg://user?id={idsss.id})")
                 return
       text = f'''**•User information ➥[{idsss.first_name}](tg://user?id={idsss.id})
 •List Kills:**
