@@ -84,7 +84,7 @@ def myself(c, m):
             text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
             text
             i += 1
-            text = text.replace('999995','•1 ➥')
+            text = text.replace'999995','•1 ➥'
             text = text.replace('999996','•2 ➥')
             text = text.replace('999997','•3 ➥')
             text = text.replace('999998','•4 ➥')
@@ -119,18 +119,18 @@ def myself(c, m):
             tar = m.reply_to_message.from_user
         else:
             tar = m.from_user
-        app.edit_message_text(chatid, msgid, f'''**•** **User ID [{tar.first_name}](tg://user?id={tar.id}) Found**
+        app.edit_message_text(chatid, msgid, f'''**•User ID [{tar.first_name}](tg://user?id={tar.id}) Found**
 **•User ID ➥** `{tar.id}`''')
 
     if "Userid" in m.text:
       users = m.text.split()[1]
       ids = app.get_users(users)
-      app.edit_message_text(chatid, msgid, f'''**•** **User ID [{ids.first_name}](tg://user?id={ids.id}) Found**
+      app.edit_message_text(chatid, msgid, f'''**•User ID [{ids.first_name}](tg://user?id={ids.id}) Found**
 **•User ID ➥** `{ids.id}`''')
     if "userid" in m.text:
       users = m.text.split()[2]
       ids = app.get_users(users)
-      app.edit_message_text(chatid, msgid, f'''**•** **User ID [{ids.first_name}](tg://user?id={ids.id}) Found**
+      app.edit_message_text(chatid, msgid, f'''**•User ID [{ids.first_name}](tg://user?id={ids.id}) Found**
 **•User ID ➥** `{ids.id}`''')
 
     if "Userse" in m.text:
@@ -143,7 +143,7 @@ def myself(c, m):
       app.edit_message_text(chatid, msgid, f"**『 User [{ids.first_name}](tg://user?id={ids.id}) Found  』**")
 
     if m.text == "groupid" or m.text == "Groupid":
-      app.edit_message_text(chatid, msgid, f'''**•** **Group ID ➥ {chatti} Found**
+      app.edit_message_text(chatid, msgid, f'''**•Group ID ➥ {chatti} Found**
 **•Group ID ➥** `{chatid}`''')
 
     if "Stats" in m.text:
@@ -194,7 +194,7 @@ def myself(c, m):
             text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
             text
             i += 1
-            text = text.replace('999995','•1 ➥')
+            text = text.replace'999995','•1 ➥'
             text = text.replace('999996','•2 ➥')
             text = text.replace('999997','•3 ➥')
             text = text.replace('999998','•4 ➥')
@@ -215,7 +215,7 @@ def myself(c, m):
             text += f'**{i+1} {user["name"]} (`{user["times"]}`)**\n'
             text
             i += 1
-            text = text.replace('999995','•1 ➥')
+            text = text.replace'999995','•1 ➥'
             text = text.replace('999996','•2 ➥')
             text = text.replace('999997','•3 ➥')
             text = text.replace('999998','•4 ➥')
@@ -407,7 +407,7 @@ def myself(c, m):
         app.edit_message_text(m.chat.id, msgid, "**『 Get Users...  』**")
         gcm = app.get_chat_members(gp)
         app.edit_message_text(m.chat.id, msgid, "**『 ✅ 』**")
-        gmtext = "**『 LIst Group♻️ 』**\n"
+        gmtext = "**『 List Group♻️ 』**\n"
         for gg in gcm:
             if gg.user.username:
                gmtext += f"@{gg.user.username}\n"
@@ -419,7 +419,7 @@ def myself(c, m):
         app.edit_message_text(m.chat.id, msgid, "**『 Get Users...  』**")
         gcm = app.get_chat_members(gp)
         app.edit_message_text(m.chat.id, msgid, "**『 ✅ 』**")
-        gmtext = "**『 LIst Group♻️ 』**\n"
+        gmtext = "**『 List Group♻️ 』**\n"
         for gg in gcm:
             if gg.user.username:
                gmtext += f"@{gg.user.username}\n"
@@ -430,7 +430,7 @@ def myself(c, m):
         app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) Ban📛 』**")
     if m.text == "unban" or m.text == "Unban":
         app.unban_chat_member(chatid, m.reply_to_message.from_user.id)
-        app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id})Un ban ✅ 』**")
+        app.edit_message_text(chatid, msgid, f"**『 [User](tg://user?id={m.reply_to_message.from_user.id}) Un ban ✅ 』**")
 
  
     if m.text.split()[0] == "setedit1":
