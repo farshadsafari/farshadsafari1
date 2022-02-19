@@ -98,21 +98,25 @@ def wlcof(clientt,message):
     wlc_heh[message.chat.id] = False
   
 
-shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi|لطفا از دستورات ربات استفاده نکنید|#players|فقط یک دقیقه دیگه|فقط 30  ثانیه دیگه|فقط 10  ثانیه دیگه'
+shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi'
 @app.on_message(filters.regex(shekar))
 def pin_ch(client, message):
     app.pin_chat_message(message.chat.id,message.message_id)
 
-active = [5296357997,2113150493,205092371,198626752,175844556,742956373]
+active = [5296357997,2113150493,205092371,198626752,175844556,742956373,1097201508]
 
 @app.on_message (filters.text & filters.group & ~filters.edited)
 def heln(c, m):
     global nextt
-    if "#players" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "/Startchaos",)
     if m.text == "setmtn":
         nextt = m.reply_to_message.text
         app.send_message(m.chat.id,  "پیام تنظیم شده {setmtn}")
+        
+    if "#players" in m.text and m.from_user.id in active:
+        app.send_message(m.chat.id, "pin",reply_to_message_id=m.message_id)
+        
+   if "#players" in m.text and m.from_user.id in active:
+        app.send_message(m.chat.id, "/Startchaos",)
       
     if "ping" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**Im Online @farrshad シ︎**", reply_to_message_id=m.message_id)
@@ -120,17 +124,11 @@ def heln(c, m):
     if "مدت زمان بازی" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**چه بازی جذابی بود سری جوین شین برای بازی بعدی👻**", reply_to_message_id=m.message_id)
         
-    if "• پیام های فرد مورد نظر با موفقیت حذف شدند !" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "delall",reply_to_message_id=m.message_id)         
+    if "• پیام مورد نظر شما با موفقیت سنجاق گردید !" in m.text and m.from_user.id in active:
+        app.send_message(m.chat.id, "del",reply_to_message_id=m.message_id)         
      
     if "مدت زمان بازی" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "/Startchaos",reply_to_message_id=m.message_id)
-    
-    if "مدت زمان بازی" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "/Startchaos",)
-        
-    if "مدت زمان بازی" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "/Startchaos",)
-   
+  
 
 app.run()
