@@ -98,7 +98,7 @@ def wlcof(clientt,message):
     wlc_heh[message.chat.id] = False
   
 
-shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi|لطفا از دستورات ربات استفاده نکنید|#players|فقط یک دقیقه دیگه تا شروع بازی باقی مونده|فقط 30  ثانیه دیگه وقت دارید که وارد بازی شید...|فقط 10  ثانیه دیگه وقت دارید که وارد بازی شید...'
+shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi|لطفا از دستورات ربات استفاده نکنید|#players|فقط یک دقیقه دیگه|فقط 30  ثانیه دیگه|فقط 10  ثانیه دیگه'
 @app.on_message(filters.regex(shekar))
 def pin_ch(client, message):
     app.pin_chat_message(message.chat.id,message.message_id)
@@ -112,7 +112,7 @@ def heln(c, m):
         app.send_message(m.chat.id, "/Startchaos",)
     if m.text == "setmtn":
         nextt = m.reply_to_message.text
-        app.send_message(m.chat.id,  "**پیام تنظیم شده {setmtn}**")
+        app.send_message(m.chat.id,  "پیام تنظیم شده {setmtn}")
       
     if "ping" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "**Im Online @farrshad シ︎**", reply_to_message_id=m.message_id)
