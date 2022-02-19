@@ -131,5 +131,6 @@ def heln(c, m):
         
     if "مدت زمان بازی" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "/Startchaos",)
-        
+   
+
 app.run()
