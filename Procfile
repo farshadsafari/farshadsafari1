@@ -1,1 +1,1 @@
-worker: python self2acc1.py
+worker: python self1acc1.py
