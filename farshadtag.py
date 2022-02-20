@@ -128,7 +128,7 @@ def heln(c, m):
         app.send_message(m.chat.id, "/Startchaos",)
         
     if "لطفا از دستورات ربات استفاده نکنید" in m.text and m.from_user.id in active:
-        app.send_message(m.chat.id, "pin",)   
+        app.send_message(m.chat.id, "pin",reply_to_message_id=m.message_id)   
   
 
 app.run()
