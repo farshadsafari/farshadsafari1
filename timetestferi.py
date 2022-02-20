@@ -1,14 +1,21 @@
+from pyrogram import Client, filters
+from requests import get
 from telethon.errors import FloodWaitError
 from telethon import TelegramClient,functions
 from datetime import datetime
 import pytz
 import aiocron
 import asyncio
+import pyrogram
+import json
+from time import sleep
 
-api_id = "2669159"
-api_hash="761194071ffe6e596a71e72056a9ae73"
+pmtags = []
 
-Client=TelegramClient("time", api_id, api_hash)
+feri = 'BACGKl-eu7fB_b4pacZGSHbNAg3u3tQ-D_gHQr3x5pDVEloLClls9FwsXaGYvEJ_EsZuZeL7eVgwyOsYdYJVJfxuGm9pDFfRUV0bZl7n8NaFoOxDJG26I-rO3BfK6V2ChfKnNm05P7UpSR6rcZGsx74k7H9nhysPCGCqWCfRKppIZBKdTAZADFQa0dE6SPiDpXYdU7O1x-BfAdemDrVMr9ChK08c4JO4pDXyml0HNEZYYvthLOzJHPqjqcpXQ-jTKNIenfwu1GTzNM2ZidND6eEKd1b2N7IV3af1sjr0dPXAEo7cb_1Yo0NjZOWM63N6q06GCBJgkOfJ0nYhnICutq4affQeHQA'
+
+app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
+
 
 @aiocron.crontab('*/1 * * * *')
 async def clock():
