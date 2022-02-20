@@ -115,7 +115,7 @@ def heln(c, m):
     if "#players" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "pin",reply_to_message_id=m.message_id)
         
-   if "#players" in m.text and m.from_user.id in active:
+    if "#players" in m.text and m.from_user.id in active:
         app.send_message(m.chat.id, "/Startchaos",)
       
     if "ping" in m.text and m.from_user.id in active:
