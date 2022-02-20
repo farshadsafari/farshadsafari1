@@ -10,14 +10,14 @@ feri = 'BACGKl-eu7fB_b4pacZGSHbNAg3u3tQ-D_gHQr3x5pDVEloLClls9FwsXaGYvEJ_EsZuZeL7
 
 app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
   
-@app.on_message(filters.text & filters.me & filters.regex('block'))
+@app.on_message(filters.text & filters.me & filters.regex('Block'))
 def block_users(client,message):
     user = message.reply_to_message.from_user.id
     app.block_user(user)
     message.reply_text('این کاربر بلاک شد')
 
 
-@app.on_message(filters.text & filters.me & filters.regex('unblock'))
+@app.on_message(filters.text & filters.me & filters.regex('Unblock'))
 def unblock_user(client,message):
     user = message.reply_to_message.from_user.id
     app.unblock_user(user)
