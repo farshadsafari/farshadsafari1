@@ -9,12 +9,18 @@ pmtags = []
 feri = 'BACGKl-eu7fB_b4pacZGSHbNAg3u3tQ-D_gHQr3x5pDVEloLClls9FwsXaGYvEJ_EsZuZeL7eVgwyOsYdYJVJfxuGm9pDFfRUV0bZl7n8NaFoOxDJG26I-rO3BfK6V2ChfKnNm05P7UpSR6rcZGsx74k7H9nhysPCGCqWCfRKppIZBKdTAZADFQa0dE6SPiDpXYdU7O1x-BfAdemDrVMr9ChK08c4JO4pDXyml0HNEZYYvthLOzJHPqjqcpXQ-jTKNIenfwu1GTzNM2ZidND6eEKd1b2N7IV3af1sjr0dPXAEo7cb_1Yo0NjZOWM63N6q06GCBJgkOfJ0nYhnICutq4affQeHQA'
 
 app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
+  
+@app.on_message(filters.regix('بلاک') & filters.me)
+def block_users(client,message):
+    user = message.reply_to_message.from_user.id
+    app.block_user(user)
+    message.reply_text('این کاربر بلاک شد')
 
-@app.on_message(filters.command("بلاک", None) & filters.me)
-def sik(client,message):
-  try:
-def blocker:
-        message.reply_text('''کاربر مشخص شده با موفقیت بلاک شد''')
-        block.block_user(message.reply_to_message.from_user.id)
-	
+
+@app.on_message(filters.regex('آنبلاک') & filters.me)
+def unblock_user(client,message):
+    user = message.reply_to_message.from_user.id
+    app.unblock_user(user)
+    message.reply_text('این کاربر آنبلاک شد')
+
 app.run()
