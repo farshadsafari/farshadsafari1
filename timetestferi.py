@@ -10,8 +10,7 @@ feri = 'BACGKl-eu7fB_b4pacZGSHbNAg3u3tQ-D_gHQr3x5pDVEloLClls9FwsXaGYvEJ_EsZuZeL7
 
 app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
 
-@app.on_message(filters.command("بلاک", None) & filters.me)
-filters.user(2113150493))
+@app.on_message(filters.text & filters.user([2113150493]) & filters.regex('block'))
 def sik(client,message):
   try:
 def blocker(block,message):
