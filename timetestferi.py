@@ -13,7 +13,7 @@ app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded
 @app.on_message(filters.command("بلاک", None) & filters.me)
 def sik(client,message):
   try:
-def blocker(block,message):
+def blocker(blocker,message):
         message.reply_text('''کاربر مشخص شده با موفقیت بلاک شد''')
         block.block_user(message.reply_to_message.from_user.id)
 	
