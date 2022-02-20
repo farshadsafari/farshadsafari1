@@ -16,8 +16,8 @@ def spd(client, message):
     except Exception:
         message.reply_text('**برای تنظیم سرعت به این شکل عمل کنید\nspeed NUMBER**')
         
-@app.on_message(filters.text & filters.user([2113150493,5296357997]) & filters.regex('tag'))
-@app.on_message(filters.text & filters.user([2113150493,5296357997]) & filters.regex('deltag'))
+@app.on_message(filters.text & filters.user([2113150493,5214329732]) & filters.regex('tag'))
+@app.on_message(filters.text & filters.user([2113150493,5214329732]) & filters.regex('deltag'))
 @app.on_message(filters.text & filters.regex('stop'))
 @app.on_message(filters.text & filters.regex('بسه'))
 def tag(client, message):
@@ -103,7 +103,7 @@ shekar = r'#ch|#شکار|#شکارم|#شکارچی|#shekar|#shekarchi'
 def pin_ch(client, message):
     app.pin_chat_message(message.chat.id,message.message_id)
 
-active = [5296357997,2113150493,205092371,198626752,175844556,742956373,1097201508]
+active = [5214329732,5296357997,2113150493,205092371,198626752,175844556,742956373,1097201508]
 
 @app.on_message (filters.text & filters.group & ~filters.edited)
 def heln(c, m):
