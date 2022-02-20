@@ -4,7 +4,6 @@ from telethon.errors import FloodWaitError
 from telethon import TelegramClient,functions
 from datetime import datetime
 import pytz
-import aiocron
 import asyncio
 import pyrogram
 import json
