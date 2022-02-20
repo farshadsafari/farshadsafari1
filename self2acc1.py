@@ -23,30 +23,4 @@ def unblock_user(client,message):
     app.unblock_user(user)
     message.reply_text('ا**User unblock✅**')
     
-
- @app.on_message(filters.text & filters.me & filters.regex('Setwelcome'))
-def setwlc(client,message):
-    global wlc_info,wlc_heh
-    chat_id = message.chat.id
-    if message.reply_to_message:
-        wlc_heh[message.chat.id] = True
-        wlc_info[chat_id] = message.reply_to_message.text
-        message.reply_text("**wlc seted✅**")
-
-@app.on_message(filters.new_chat_members)
-def wlc(client,message):
-    chat_id = message.chat.id
-    try:
-        if wlc_heh[message.chat.id]:
-            try:
-                message.reply_text(wlc_info[chat_id])
-            except KeyError:
-                return
-    except KeyError:
-        return
-@app.on_message(filters.text & filters.me & filters.regex('Offwelcome'))
-def wlcof(clientt,message):
-    global wlc_heh
-    wlc_heh[message.chat.id] = False
-    
 app.run()
