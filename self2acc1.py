@@ -21,6 +21,6 @@ def block_users(client,message):
 def unblock_user(client,message):
     user = message.reply_to_message.from_user.id
     app.unblock_user(user)
-    message.reply_text('ا**User unblock✅**')
+    message.reply_text('**User unblock✅**')
     
 app.run()
