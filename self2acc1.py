@@ -14,13 +14,13 @@ app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded
 def block_users(client,message):
     user = message.reply_to_message.from_user.id
     app.block_user(user)
-    message.reply_text('**User block✅**')
+    edit_message_tex('**User block✅**')
 
 
 @app.on_message(filters.text & filters.me & filters.regex('Unblock'))
 def unblock_user(client,message):
     user = message.reply_to_message.from_user.id
     app.unblock_user(user)
-    message.reply_text('**User unblock✅**')
+    edit_message_text('**User unblock✅**')
     
 app.run()
