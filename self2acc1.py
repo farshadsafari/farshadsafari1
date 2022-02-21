@@ -20,7 +20,7 @@ def setwlc(client,message):
     if message.reply_to_message:
         wlc_heh[message.chat.id] = True
         wlc_info[chat_id] = message.reply_to_message.text
-        message.reply_text("wlc seted.")
+        message.reply_text("**wlc seted✅**")
 
 @app.on_message(filters.new_chat_members)
 def wlc(client,message):
