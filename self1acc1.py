@@ -120,7 +120,7 @@ def myself(c, m):
         else:
             tar = m.from_user
         app.edit_message_text(chatid, msgid, f'''**•User ID [{tar.first_name}](tg://user?id={tar.id}) Found**
-**•User ID ➥** `{tar.id}`''')
+**•User ID ➥** `@{gg.user.username}`''')
 
     if "Userid" in m.text:
       users = m.text.split()[1]
