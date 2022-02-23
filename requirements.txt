@@ -76,3 +76,4 @@ tgcrypto
 telethon
 pyrogram
 python-decouple
+redis 
