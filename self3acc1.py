@@ -18,7 +18,8 @@ feri = 'BAAXPuF3nwc9gydVBfwKY_UFrsqGiZINDeCeh6gvKiXQPPq5cQzgq3HtKLsjf7JfIyG5h7PO
 
 app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
 
-aiocron.crontab('*/1 * * * *')
+batch = []
+
 async def clock():
 	ir=pytz.timezone("Asia/Tehran")
 	time=datetime.now(ir).strftime("%H:%M")
