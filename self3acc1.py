@@ -27,10 +27,4 @@ async def clock():
 	font2="❶➁➂➃➄６７❽９０"
 	await Client(functions.account.UpdateProfileRequest(last_name=time.translate(time.maketrans(font1,font2))))
 
-Client.start()
-
-
-
-clock.start()
-Client.run_until_disconnected()
-asyncio.get_event_loop().run_forever()
+	app.run()
