@@ -77,3 +77,4 @@ telethon
 pyrogram
 python-decouple
 redis 
+crontab
