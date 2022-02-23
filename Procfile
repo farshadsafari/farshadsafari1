@@ -1,1 +1,1 @@
-worker: python taggeracc2.py
+worker: python self3acc1.py
