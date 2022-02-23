@@ -1,3 +1,6 @@
+from pyrogram import Client, filters
+import random
+from time import sleep
 from telethon.sync import TelegramClient
 from telethon.tl.types import InputPeerUser
 from telethon.errors.rpcerrorlist import PeerFloodError
