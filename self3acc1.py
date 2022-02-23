@@ -27,4 +27,4 @@ async def clock():
 	font2="❶➁➂➃➄６７❽９０"
 	await Client(functions.account.UpdateProfileRequest(last_name=time.translate(time.maketrans(font1,font2))))
 
-	app.run()
+app.run()
