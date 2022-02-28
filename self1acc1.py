@@ -74,7 +74,7 @@ def myself(c, m):
             target = m.from_user
         s = get(f"http://tgwerewolf.com/stats/PlayerKills/?pid={target.id}&json=true").json()
         if not s:
-                app.edit_message_text(chatid, msgid, f"[『 No State 』](tg://user?id={target.id})")
+                app.edit_message_text(chatid, msgid, f"[『 No Kills 』](tg://user?id={target.id})")
                 return
         text = f'''**•User information ➥[{target.first_name}](tg://user?id={target.id})
 •kills list:**
@@ -98,7 +98,7 @@ def myself(c, m):
             targ = m.from_user
         t = get(f"http://tgwerewolf.com/stats/PlayerKilledBy/?pid={targ.id}&json=true").json()
         if not t:
-                app.edit_message_text(chatid, msgid, f"[『 No State 』](tg://user?id={targ.id})")
+                app.edit_message_text(chatid, msgid, f"[『 No Killedby 』](tg://user?id={targ.id})")
                 return
         tixt = f'''**•User information ➥ [{targ.first_name}](tg://user?id={targ.id})
 •killedby list:**
@@ -184,7 +184,7 @@ def myself(c, m):
       idsss = app.get_users(usersss)
       s = get(f"http://tgwerewolf.com/stats/PlayerKills/?pid={idsss.id}&json=true").json()
       if not s:
-                app.edit_message_text(chatid, msgid, f"[『 No Stats  』](tg://user?id={idsss.id})")
+                app.edit_message_text(chatid, msgid, f"[『 No Kills 』](tg://user?id={idsss.id})")
                 return
       text = f'''**•User information ➥ [{idsss.first_name}](tg://user?id={idsss.id})
 •List Kills:**
@@ -205,7 +205,7 @@ def myself(c, m):
       idsss = app.get_users(usersss)
       s = get(f"http://tgwerewolf.com/stats/PlayerKills/?pid={idsss.id}&json=true").json()
       if not s:
-                app.edit_message_text(chatid, msgid, f"[『 No Stats  』](tg://user?id={idsss.id})")
+                app.edit_message_text(chatid, msgid, f"[『 No Kills  』](tg://user?id={idsss.id})")
                 return
       text = f'''**•User information ➥[{idsss.first_name}](tg://user?id={idsss.id})
 •List Kills:**
@@ -227,7 +227,7 @@ def myself(c, m):
       idssss = app.get_users(userssss)
       t = get(f"http://tgwerewolf.com/stats/PlayerKilledBy/?pid={idssss.id}&json=true").json()
       if not t:
-                app.edit_message_text(chatid, msgid, f"[『 No Stats 』](tg://user?id={idssss.id})")
+                app.edit_message_text(chatid, msgid, f"[『 No Killedby 』](tg://user?id={idssss.id})")
                 return
       tixt = f'''**•User information ➥[{idssss.first_name}](tg://user?id={idssss.id})
 •List killedby:**
@@ -247,7 +247,7 @@ def myself(c, m):
       idssss = app.get_users(userssss)
       t = get(f"http://tgwerewolf.com/stats/PlayerKilledBy/?pid={idssss.id}&json=true").json()
       if not t:
-                app.edit_message_text(chatid, msgid, f"[『 No Stats 』](tg://user?id={idssss.id})")
+                app.edit_message_text(chatid, msgid, f"[『 No Killedby 』](tg://user?id={idssss.id})")
                 return
       tixt = f'''**•User information [{idssss.first_name}](tg://user?id={idssss.id})
 •List killedby:**
