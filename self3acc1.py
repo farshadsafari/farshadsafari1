@@ -18,13 +18,12 @@ feri = 'BAAXPuF3nwc9gydVBfwKY_UFrsqGiZINDeCeh6gvKiXQPPq5cQzgq3HtKLsjf7JfIyG5h7PO
 
 app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
 
-batch = []
-
-async def clock():
-	ir=pytz.timezone("Asia/Tehran")
-	time=datetime.now(ir).strftime("%H:%M")
-	font1="1234567890"
-	font2="❶➁➂➃➄６７❽９０"
-	await Client(functions.account.UpdateProfileRequest(last_name=time.translate(time.maketrans(font1,font2))))
-
+@app.on_message(filters.me & filters.text & filters.command(['joingroup']) & filters.reply)
+def join(client, message):
+    try:
+        join = message.reply_to_message.text
+        client.join_chat(join)
+        message.edit_text("• Joined!")
+    except:
+        pass
 app.run()
