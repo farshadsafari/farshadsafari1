@@ -20,7 +20,7 @@ last_bio = None
 
 def job(mybio:str):
     global timer
-    t = Timer(30,job,(mybio,))
+    t = timer(30,job,(mybio,))
     if timer:
         now = jdatetime.datetime.now().strftime('%H:%M')
         font1="1234567890"
@@ -55,5 +55,5 @@ def time_in_bio(client, message):
                 message.reply_text('ok')
             else:
                 message.reply_text('غیر فعال بود')
-    
+                
 app.run()
