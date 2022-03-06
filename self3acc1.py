@@ -8,7 +8,6 @@ feri = 'BAA9WLj4NC92s0BRoKxVYHYOJYqqtxJyfNwMxSwKkZDOF-aGD7fSw7RngKE1cD6oR1kMO9Ai
 
 app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
 
-[Forwarded from یابندگان حجت]
 import os ,sys 
 if sys.platform == 'win32':
     ins = 'python -m pip install jdatetime pyrogram'
