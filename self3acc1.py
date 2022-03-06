@@ -8,46 +8,45 @@ feri = 'BAA9WLj4NC92s0BRoKxVYHYOJYqqtxJyfNwMxSwKkZDOF-aGD7fSw7RngKE1cD6oR1kMO9Ai
 
 app = Client(session_name=feri, api_id=11434929, api_hash='96015db8ea30bdbbeeded8a6c046d3fa')
 
+timer = False
+last_bio = None
 
-wlc_info = {}
-wlc_heh = {}
+def job(mybio:str):
+    global timer
+    t = Timer(30,job,(mybio,))
+    if timer:
+        now = jdatetime.datetime.now().strftime('%H:%M')
+        font1="1234567890"
+        font2="¹²³⁴⁵⁶⁷⁸⁹⁰"
+        now = now.translate(now.maketrans(font1,font2))
+        my_bio = '【{}】{}'.format(now,mybio)
+        t.start()
+        if mybio is not None:
+            app.update_profile(last_name=now) 
+        else:
+            app.update_profile(last_name=now)
+    else:
+        t.cancel()
 
-@app.on_message(filters.text & filters.me & filters.regex('Setwelcome'))
-def setwlc(client,message):
-    global wlc_info,wlc_heh
-    chat_id = message.chat.id
-    if message.reply_to_message:
-        wlc_heh[message.chat.id] = True
-        wlc_info[chat_id] = message.reply_to_message.text
-        message.reply_text("**wlc seted✅**")
-
-@app.on_message(filters.new_chat_members)
-def wlc(client,message):
-    chat_id = message.chat.id
-    try:
-        if wlc_heh[message.chat.id]:
-            try:
-                message.reply_text(wlc_info[chat_id])
-            except KeyError:
-                return
-    except KeyError:
-        return
-@app.on_message(filters.text & filters.me & filters.regex('Offwelcome'))
-def wlcof(clientt,message):
-    global wlc_heh
-    wlc_heh[message.chat.id] = False 
- 
-@app.on_message(filters.text & filters.me & filters.regex('Block'))
-def block_users(client,message):
-    user = message.reply_to_message.from_user.id
-    app.block_user(user)
-    message.reply_text('**User block✅**')
-
-
-@app.on_message(filters.text & filters.me & filters.regex('Unblock'))
-def unblock_user(client,message):
-    user = message.reply_to_message.from_user.id
-    app.unblock_user(user)
-    message.reply_text('**User unblock✅**')
+@app.on_message(filters.command('time_bio') & filters.me)
+def time_in_bio(client, message):
+    global timer, last_bio
+    mybio = app.get_chat(message.from_user.id).bio
+    if len(message.command) == 2:
+        if message.command[1].lower() == 'on':
+            if timer:
+                message.reply_text('فعال بود')
+            else:
+                timer = True
+                last_bio = mybio
+                job(mybio)
+                message.reply_text('ok')
+        if message.command[1].lower() == 'off':
+            if timer:
+                timer = False
+                app.update_profile(bio=last_bio)
+                message.reply_text('ok')
+            else:
+                message.reply_text('غیر فعال بود')
     
 app.run()
