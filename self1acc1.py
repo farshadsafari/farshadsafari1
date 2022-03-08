@@ -55,17 +55,17 @@ def myself(c, m):
             target = m.from_user
         stats = get(f"https://Tgwerewolf.com/stats/playerstats/?pid={target.id}&json=true").json()
         if not stats:
-                app.edit_message_text(chatid, msgid, f"[『 No State 』](tg://user?id={target.id})")
+                app.edit_message_text(chatid, msgid, f"[『 No Stats 』](tg://user?id={target.id})")
                 return
         tedadBazia = stats["gamesPlayed"]
         tedadBord = stats["won"]["total"]
         darsadBord = stats["won"]["percent"]
         tedadBakht = stats["lost"]["total"]
         darsadBakht = stats["lost"]["percent"]
-        app.edit_message_text(chatid, msgid, f"""**•User information ➥ [{target.first_name}](tg://user?id={target.id})
-•Games ➥ {tedadBazia}
-•win ➥ {tedadBord} ⊰%{darsadBord}⊱ 
-•Lost ➥ {tedadBakht} ⊰%{darsadBakht}⊱**""")
+        app.edit_message_text(chatid, msgid, f"""**•User Name ➥ [{target.first_name}](tg://user?id={target.id})
+•Games ➥ ⊰{tedadBazia}⊱ 
+•win ➥ ⊰{tedadBord}⊱  ⊰%{darsadBord}⊱ 
+•Lost ➥ ⊰{tedadBakht}⊱  ⊰%{darsadBakht}⊱**""")
 
     elif m.text == "Kills" or m.text == "قتل ها":
         if m.reply_to_message:
@@ -76,7 +76,7 @@ def myself(c, m):
         if not s:
                 app.edit_message_text(chatid, msgid, f"[『 No Kills 』](tg://user?id={target.id})")
                 return
-        text = f'''**•User information ➥[{target.first_name}](tg://user?id={target.id})
+        text = f'''**•User Name ➥[{target.first_name}](tg://user?id={target.id})
 •kills list:**
 '''
         i = 999994
@@ -100,7 +100,7 @@ def myself(c, m):
         if not t:
                 app.edit_message_text(chatid, msgid, f"[『 No Killedby 』](tg://user?id={targ.id})")
                 return
-        tixt = f'''**•User information ➥ [{targ.first_name}](tg://user?id={targ.id})
+        tixt = f'''**•User Name ➥ [{targ.first_name}](tg://user?id={targ.id})
 •killedby list:**
 '''
         o = 999994
@@ -119,18 +119,18 @@ def myself(c, m):
             tar = m.reply_to_message.from_user
         else:
             tar = m.from_user
-        app.edit_message_text(chatid, msgid, f'''**•User ID [{tar.first_name}](tg://user?id={tar.id}) Found**
+        app.edit_message_text(chatid, msgid, f'''**•User Name ➥ [{tar.first_name}](tg://user?id={tar.id})**
 **•User ID ➥** `{tar.id}`''')
 
     if "Userid" in m.text:
       users = m.text.split()[1]
       ids = app.get_users(users)
-      app.edit_message_text(chatid, msgid, f'''**•User ID [{ids.first_name}](tg://user?id={ids.id}) Found**
+      app.edit_message_text(chatid, msgid, f'''**•User Name ➥ [{ids.first_name}](tg://user?id={ids.id})**
 **•User ID ➥** `{ids.id}`''')
     if "userid" in m.text:
       users = m.text.split()[2]
       ids = app.get_users(users)
-      app.edit_message_text(chatid, msgid, f'''**•User ID [{ids.first_name}](tg://user?id={ids.id}) Found**
+      app.edit_message_text(chatid, msgid, f'''**•User Name ➥ [{ids.first_name}](tg://user?id={ids.id})**
 **•User ID ➥** `{ids.id}`''')
 
     if "Userse" in m.text:
@@ -143,7 +143,7 @@ def myself(c, m):
       app.edit_message_text(chatid, msgid, f"**『 User [{ids.first_name}](tg://user?id={ids.id}) Found  』**")
 
     if m.text == "groupid" or m.text == "Groupid":
-      app.edit_message_text(chatid, msgid, f'''**•Group ID ➥ {chatti} Found**
+      app.edit_message_text(chatid, msgid, f'''**•Group Name ➥ {chatti}**
 **•Group ID ➥** `{chatid}`''')
 
     if "Stats" in m.text:
@@ -151,17 +151,17 @@ def myself(c, m):
       idss = app.get_users(userss)
       stats = get(f"https://Tgwerewolf.com/stats/playerstats/?pid={idss.id}&json=true").json()
       if not stats:
-                app.edit_message_text(chatid, msgid, f"[『 No State 』](tg://user?id={idss.id})")
+                app.edit_message_text(chatid, msgid, f"[『 No Stats 』](tg://user?id={idss.id})")
                 return
       tedadBazia = stats["gamesPlayed"]
       tedadBord = stats["won"]["total"]
       darsadBord = stats["won"]["percent"]
       tedadBakht = stats["lost"]["total"]
       darsadBakht = stats["lost"]["percent"]
-      app.edit_message_text(chatid, msgid, f"""**•User information ➥ [{idss.first_name}](tg://user?id={idss.id})
-•Games ➥ {tedadBazia}
-•win ➥ {tedadBord} (%{darsadBord}) 
-•Lost ➥ {tedadBakht} (%{darsadBakht})**""")
+      app.edit_message_text(chatid, msgid, f"""**•User Name ➥ [{idss.first_name}](tg://user?id={idss.id})
+•Games ➥ ⊰{tedadBazia}⊱
+•win ➥ ⊰{tedadBord}⊱ ⊰%{darsadBord}⊱
+•Lost ➥ ⊰{tedadBakht}⊱ ⊰%{darsadBakht}⊱**""")
     if "Games" in m.text:
       userss = m.text.split()[2]
       idss = app.get_users(userss)
@@ -174,10 +174,10 @@ def myself(c, m):
       darsadBord = stats["won"]["percent"]
       tedadBakht = stats["lost"]["total"]
       darsadBakht = stats["lost"]["percent"]
-      app.edit_message_text(chatid, msgid, f"""**•User information ➥[{idss.first_name}](tg://user?id={idss.id})
-•Games ➥ {tedadBazia}
-•win ➥ {tedadBord} (%{darsadBord}) 
-•Lost ➥ {tedadBakht} (%{darsadBakht})**""")
+      app.edit_message_text(chatid, msgid, f"""**•User Name ➥[{idss.first_name}](tg://user?id={idss.id})
+•Games ➥ ⊰{tedadBazia}⊱
+•win ➥ ⊰{tedadBord}⊱ ⊰%{darsadBord}⊱ 
+•Lost ➥ ⊰{tedadBakht}⊱ ⊰%{darsadBakht}⊱**""")
 
     elif "قتل ها" in m.text:
       usersss = m.text.split()[2]
@@ -186,7 +186,7 @@ def myself(c, m):
       if not s:
                 app.edit_message_text(chatid, msgid, f"[『 No Kills 』](tg://user?id={idsss.id})")
                 return
-      text = f'''**•User information ➥ [{idsss.first_name}](tg://user?id={idsss.id})
+      text = f'''**•User Name ➥ [{idsss.first_name}](tg://user?id={idsss.id})
 •List Kills:**
 '''
       i = 999994
@@ -207,7 +207,7 @@ def myself(c, m):
       if not s:
                 app.edit_message_text(chatid, msgid, f"[『 No Kills  』](tg://user?id={idsss.id})")
                 return
-      text = f'''**•User information ➥[{idsss.first_name}](tg://user?id={idsss.id})
+      text = f'''**•User Name ➥[{idsss.first_name}](tg://user?id={idsss.id})
 •List Kills:**
 '''
       i = 999994
@@ -229,7 +229,7 @@ def myself(c, m):
       if not t:
                 app.edit_message_text(chatid, msgid, f"[『 No Killedby 』](tg://user?id={idssss.id})")
                 return
-      tixt = f'''**•User information ➥[{idssss.first_name}](tg://user?id={idssss.id})
+      tixt = f'''**•User Name ➥[{idssss.first_name}](tg://user?id={idssss.id})
 •List killedby:**
 '''
       o = 999994
@@ -249,7 +249,7 @@ def myself(c, m):
       if not t:
                 app.edit_message_text(chatid, msgid, f"[『 No Killedby 』](tg://user?id={idssss.id})")
                 return
-      tixt = f'''**•User information [{idssss.first_name}](tg://user?id={idssss.id})
+      tixt = f'''**•User Name [{idssss.first_name}](tg://user?id={idssss.id})
 •List killedby:**
 '''
       o = 999994
