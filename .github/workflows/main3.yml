@@ -10,6 +10,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
-          heroku_api_key: "9e57503c-f968-4a04-b193-6b468d4eea23"
-          heroku_email: "farshadsafari206@gmail.com"
+          heroku_api_key: "1e1bb98b-7582-4f07-a1e4-0ec0869c71e3"
+          heroku_email: "fsafari523@gmail.com"
           heroku_app_name: "self2acc1" #Must be unique in Heroku
